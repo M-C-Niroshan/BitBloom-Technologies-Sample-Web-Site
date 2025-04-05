@@ -1,9 +1,9 @@
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { type ComponentPropsWithoutRef, useState } from 'react';
+import { useState } from 'react';
 
 export function Header() {
-    const { auth, current_route } = usePage<SharedData>().props; // Get the current route from usePage
+    const { auth } = usePage<SharedData>().props; // Get the current route from usePage
     const [isMenuOpen, setIsMenuOpen] = useState(false); // To control the mobile menu toggle
 
     // Helper function to check if the current route matches the given link

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { Header } from '@/components/main-header';
 import { MainFooter } from '@/components/main-footer';
@@ -31,7 +30,6 @@ import { MdCheckCircle } from "react-icons/md";
 import { FaArrowUp } from 'react-icons/fa';
 
 export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
     const [isVisible, setIsVisible] = useState(false);
 
     // Update your slides data to include captions
