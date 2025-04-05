@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { Header } from '@/components/main-header';
 import { MainFooter } from '@/components/main-footer';
 import { Fade } from 'react-slideshow-image';
