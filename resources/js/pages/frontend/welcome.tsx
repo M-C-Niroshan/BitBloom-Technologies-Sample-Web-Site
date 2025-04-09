@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Head, Link } from '@inertiajs/react';
-import { Header } from '@/components/main-header';
-import { MainFooter } from '@/components/main-footer';
+import { Link } from '@inertiajs/react';
+import  FrontEndLayout  from '@/layouts/frontend/frontend-layout';
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { LuSquareArrowDownRight } from "react-icons/lu";
@@ -184,14 +183,9 @@ export default function Welcome({ admin_mode, title }: WelcomeProps) {
 
     return (
         <>
-            <Head>
-                <title>{admin_mode && title ? title : 'BitBloom Technologies'}</title>
-            </Head>
+            <FrontEndLayout admin_mode={admin_mode} title={title}>
 
-            <div className="flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
-                <Header admin_mode={admin_mode} />
-
-                <main className="flex-1 px-6 py-12 w-full mx-auto">
+                <div className="flex-1 px-6 py-12 w-full mx-auto">
                     {/* Slideshow and description side by side */}
                     <div className="flex flex-col md:flex-row items-center justify-center gap-10 mb-12">
                         {/* Slideshow Left Side */}
@@ -547,10 +541,8 @@ export default function Welcome({ admin_mode, title }: WelcomeProps) {
                         className={`fixed bottom-6 right-12 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out transform ${isVisible ? 'opacity-100' : 'opacity-0'} ${isVisible ? 'scale-100' : 'scale-75'}`}>
                         <FaArrowUp size={24} />
                     </button>
-                </main>
-
-                <MainFooter admin_mode={admin_mode} />
-            </div>
+                </div>
+            </FrontEndLayout>
         </>
     );
 }
