@@ -4,15 +4,24 @@ import { MainFooter } from '@/components/main-footer';
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-export default function Contact() {
+interface ContactProps {
+    admin_mode?: boolean;
+    title?: string;
+}
+
+export default function Contact({ admin_mode, title }: ContactProps) {
     return (
         <>
+            <Head>
+                <title>{admin_mode && title ? title : 'Contact Us'}</title>
+            </Head>
+
             <div className="flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
+                
                 {/* Navbar */}
-                <Header />
+                <Header admin_mode={admin_mode}/>
 
                 {/* Content */}
-                <Head title="Contact Us" />
                 <div className="flex-1 max-w-6xl mx-auto bg-[#FDFDFC] dark:bg-[#0a0a0a] px-6 py-12 text-[#1b1b18] dark:text-[#EDEDEC]">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         {/* Left Side: Contact Info */}
@@ -34,7 +43,7 @@ export default function Contact() {
                                         <a href="mailto:contact@bitbloom.tech" className="text-blue-600 hover:underline">contact@bitbloom.tech</a>
                                     </div>
                                 </div>
-                                
+
                                 <div className="flex items-center gap-4">
                                     <FaPhoneAlt className="text-blue-600" />
                                     <div>
@@ -62,7 +71,7 @@ export default function Contact() {
                         >
                             <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
                             <p className="mb-6 text-sm">Fill out the form below and we will get back to you shortly.</p>
-                            
+
                             <form className="space-y-4">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium">Full Name</label>

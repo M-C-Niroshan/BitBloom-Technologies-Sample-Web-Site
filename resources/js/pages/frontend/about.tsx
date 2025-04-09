@@ -3,7 +3,12 @@ import { Header } from '@/components/main-header';
 import { MainFooter } from '@/components/main-footer';
 import { motion } from 'framer-motion';
 
-export default function About() {
+interface AboutProps {
+    admin_mode?: boolean;
+    title?: string;
+}
+
+export default function About({ admin_mode, title }: AboutProps) {
     const company_team = [
         {
             name: "Nirushan Perera",
@@ -49,12 +54,16 @@ export default function About() {
 
     return (
         <>
+            <Head>
+                <title>{admin_mode && title ? title : 'About Us'}</title>
+            </Head>
+
             <div className="flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
+                
                 {/* Navbar */}
-                <Header />
+                <Header admin_mode={admin_mode}/>
 
                 {/* Content */}
-                <Head title="About Us" />
                 <motion.div
                     className="flex-1 max-w-6xl mx-auto bg-[#FDFDFC] dark:bg-[#0a0a0a] px-6 py-12 text-[#1b1b18] dark:text-[#EDEDEC]"
                     initial={{ opacity: 0 }}
@@ -118,7 +127,7 @@ export default function About() {
                             Our team is made up of skilled developers, designers, and strategists who are committed to delivering excellence. With a passion for innovation and a focus on results, we work collaboratively to solve the most challenging problems for our clients.
                         </p>
                     </div>
-                    
+
                     <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
                         initial={{ opacity: 0 }}
