@@ -4,13 +4,22 @@ import { MainFooter } from '@/components/main-footer';
 import { MdCode, MdDesignServices, MdCloud, MdBusiness, MdCheckCircle } from 'react-icons/md'; // Example icons
 import { motion } from 'framer-motion'; // Importing motion from framer-motion
 
-export default function Services() {
+interface ServiceProps {
+    admin_mode?: boolean;
+    title?: string;
+}
+
+export default function Services({ admin_mode, title }: ServiceProps) {
     return (
         <>
-            <Head title="Our Services" />
+            <Head>
+                <title>{admin_mode && title ? title : 'Our Services'}</title>
+            </Head>
+
             <div className="flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
+                
                 {/* Navbar */}
-                <Header />
+                <Header admin_mode={admin_mode}/>
 
                 {/* Content */}
                 <div className="flex-1 max-w-6xl mx-auto text-center px-6 py-12 bg-[#FDFDFC] dark:bg-[#0a0a0a]">

@@ -29,7 +29,12 @@ import { MdCheckCircle } from "react-icons/md";
 
 import { FaArrowUp } from 'react-icons/fa';
 
-export default function Welcome() {
+interface WelcomeProps {
+    admin_mode?: boolean;
+    title?: string;
+}
+
+export default function Welcome({ admin_mode, title }: WelcomeProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     // Update your slides data to include captions
@@ -179,16 +184,12 @@ export default function Welcome() {
 
     return (
         <>
-            <Head title="BitBloom Technologies">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link
-                    href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600"
-                    rel="stylesheet"
-                />
+            <Head>
+                <title>{admin_mode && title ? title : 'BitBloom Technologies'}</title>
             </Head>
 
             <div className="flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
-                <Header />
+                <Header admin_mode={admin_mode} />
 
                 <main className="flex-1 px-6 py-12 w-full mx-auto">
                     {/* Slideshow and description side by side */}
@@ -257,7 +258,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Buttons */}
-                            <div className="space-x-4">
+                            <div className={`space-x-4 ${admin_mode ? 'pointer-events-none' : ''}`}>
                                 <Link
                                     href="/services"
                                     className="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-2 rounded-lg inline-block"
@@ -548,7 +549,7 @@ export default function Welcome() {
                     </button>
                 </main>
 
-                <MainFooter />
+                <MainFooter admin_mode={admin_mode} />
             </div>
         </>
     );

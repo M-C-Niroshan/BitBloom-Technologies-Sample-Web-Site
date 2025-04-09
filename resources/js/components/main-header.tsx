@@ -1,14 +1,31 @@
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-export function Header() {
+interface HeaderProps {
+    admin_mode?: boolean;
+}
+
+export function Header({ admin_mode = false }: HeaderProps) {
     const { auth } = usePage<SharedData>().props; // Get the current route from usePage
     const [isMenuOpen, setIsMenuOpen] = useState(false); // To control the mobile menu toggle
+
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const userMenuRef = useRef<HTMLDivElement>(null);
 
     // Helper function to check if the current route matches the given link
     const isActive = (href: string) => window.location.pathname === href ? 'text-blue-500 font-bold' : ' dark:hover:bg-gray-200 hover:text-black transition-colors duration-300 ease-in-out rounded-md';
 
+    // Close user menu on outside click
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+                setIsUserMenuOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
     return (
         <>
             {/* Navbar */}
@@ -29,12 +46,54 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="space-x-4 text-sm hidden lg:flex">
-                    <Link href="/" className={`${isActive('/')} px-3 py-1.5`}>Home</Link>
-                    <Link href="/services" className={`${isActive('/services')} px-3 py-1.5`}>Services</Link>
-                    <Link href="/about" className={`${isActive('/about')} px-3 py-1.5`}>About</Link>
-                    <Link href="/contact" className={`${isActive('/contact')} px-3 py-1.5`}>Contact</Link>
+                    {admin_mode ? (<></>) : (<><Link href="/" className={`${isActive('/')} px-3 py-1.5`}>Home</Link>
+                        <Link href="/services" className={`${isActive('/services')} px-3 py-1.5`}>Services</Link>
+                        <Link href="/about" className={`${isActive('/about')} px-3 py-1.5`}>About</Link>
+                        <Link href="/contact" className={`${isActive('/contact')} px-3 py-1.5`}>Contact</Link></>)}
+                
                     {auth.user ? (
-                        <Link href={route('dashboard')} className="font-medium underline">Dashboard</Link>
+                        <div className="relative ml-auto" ref={userMenuRef}>
+                            {admin_mode ? (
+                                <button
+                                    className="flex items-center gap-2 rounded-full border px-3 py-1.5"
+                                >
+                                    <span className="hidden lg:inline text-red-500">
+                                        {admin_mode ? 'Admin' : auth.user.name}
+                                    </span>
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                    className="flex items-center gap-2 rounded-full border px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                >
+                                    <span className="hidden lg:inline">
+                                        {auth.user.name}
+                                    </span>
+                                    <svg
+                                        className="w-4 h-4"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                            )}
+
+                            {isUserMenuOpen && (
+                                <div className="absolute right-0 mt-2 w-24 bg-white dark:bg-[#1a1a1a] border rounded shadow-md z-50">
+                                    <Link
+                                        href={route('logout')}
+                                        method="post"
+                                        as="button"
+                                        className="flex justify-center items-center w-full py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+                                    >
+                                        Logout
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
                     ) : (
                         <>
                             <Link
@@ -51,6 +110,7 @@ export function Header() {
                             </Link>
                         </>
                     )}
+
                 </nav>
 
                 {/* Mobile Hamburger Menu */}
@@ -61,10 +121,11 @@ export function Header() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-            </header>
+            </header >
 
             {/* Mobile Navigation (Dropdown) */}
-            <div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white dark:bg-[#0a0a0a]`}>
+            < div className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white dark:bg-[#0a0a0a]`
+            }>
                 <nav className="space-y-4 px-6 py-4">
                     <Link href="/" className={`${isActive('/')} block px-3 py-1.5`}>Home</Link>
                     <Link href="/services" className={`${isActive('/services')} block px-3 py-1.5`}>Services</Link>
@@ -89,7 +150,7 @@ export function Header() {
                         </>
                     )}
                 </nav>
-            </div>
+            </div >
         </>
     );
 }

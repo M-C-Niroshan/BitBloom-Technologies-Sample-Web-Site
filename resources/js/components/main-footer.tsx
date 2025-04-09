@@ -2,8 +2,11 @@ import React from 'react'
 import { FaPhoneAlt, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { MdAlternateEmail } from 'react-icons/md';
 import { FaLocationDot } from 'react-icons/fa6';
+interface FooterProps {
+    admin_mode?: boolean;
+}
 
-export function MainFooter() {
+export function MainFooter({ admin_mode }: FooterProps) {
     return (
         <div>
             <footer className="bg-[#0B0C10] text-white py-10 w-full">
@@ -21,7 +24,7 @@ export function MainFooter() {
                         {/* Quick Links Section */}
                         <div className='flex flex-col'>
                             <h3 className="text-2xl font-semibold mb-4">Quick Links</h3>
-                            <ul className="space-y-3 text-sm text-gray-300">
+                            <ul className={`space-y-3 text-sm text-gray-300 ${admin_mode ? 'pointer-events-none' : ''}`}>
                                 <li>
                                     <a href="/services" className="hover:underline">
                                         Our Services
@@ -48,6 +51,7 @@ export function MainFooter() {
                                     </a>
                                 </li>
                             </ul>
+
                         </div>
 
                         {/* Social Media Section */}
