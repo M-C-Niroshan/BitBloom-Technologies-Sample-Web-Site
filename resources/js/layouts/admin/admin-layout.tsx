@@ -46,7 +46,18 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                 {/* Sidebar */}
                 <aside className="w-64 bg-[#1f2937] text-white flex flex-col ">
                     <div className="text-2xl font-bold p-6 border-b border-gray-700">
-                        Dashboard
+                    <div className="flex items-center space-x-3 justify-center pr-3 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="35" height="35" >
+                        <g>
+                            <circle cx="50" cy="30" r="15" fill="#E74C3C" />
+                            <circle cx="65" cy="40" r="15" fill="#F39C12" />
+                            <circle cx="35" cy="40" r="15" fill="#1ABC9C" />
+                            <circle cx="50" cy="50" r="15" fill="#9B59B6" />
+                        </g>
+                    </svg>
+
+                    <div className="text-xs font-bold">BitBloom Technologies</div>
+                </div>
                     </div>
                     <nav className="flex-1 px-4 py-6 space-y-2 custom-scrollbar overflow-auto">
                         {/* Dashboard Link */}
@@ -127,10 +138,10 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                             {openMenus.services && (
                                 <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-services/main-header" className={isActive('/dashboard/customize-services/main-header')}>
-                                        <span>Customize Main Header</span>
+                                        <span>Main Header</span>
                                     </Link>
                                     <Link href="/dashboard/customize-services/service-card" className={isActive('/dashboard/customize-services/service-card')}>
-                                        <span>Customize Service card</span>
+                                        <span>Service card</span>
                                     </Link>
                                 </div>
                             )}
@@ -154,16 +165,16 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                             {openMenus.about && (
                                 <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-about/main-header" className={isActive('/dashboard/customize-about/main-header')}>
-                                        <span>Customize Main Header</span>
+                                        <span>Main Header</span>
                                     </Link>
                                     <Link href="/dashboard/customize-about/mission-vision" className={isActive('/dashboard/customize-about/mission-vision')}>
-                                        <span>Customize Mission And Vision</span>
+                                        <span>Mission And Vision</span>
                                     </Link>
                                     <Link href="/dashboard/customize-about/middle-header" className={isActive('/dashboard/customize-about/middle-header')}>
-                                        <span>Customize middle Header</span>
+                                        <span>middle Header</span>
                                     </Link>
                                     <Link href="/dashboard/customize-about/bottom-header" className={isActive('/dashboard/customize-about/bottom-header')}>
-                                        <span>Customize Bottom Header</span>
+                                        <span>Bottom Header</span>
                                     </Link>
                                 </div>
                             )}

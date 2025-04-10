@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 
 import FrontEndLayout from '@/layouts/frontend/frontend-layout';
 
-import SliderArea from '@/components/frontend/slider-area';
-import OurTeamSection from '@/components/frontend/our-team-section';
-import ProductionProcessSection from '@/components/frontend/production-process-section';
-import KeyServiceSection from '@/components/frontend/key-service-section';
-import TechnologiesSection from '@/components/frontend/technologies-section';
-import TestimonialsSection from '@/components/frontend/testimonial-section';
+import SliderArea from '@/components/frontend/home-page/slider-area';
+import OurTeamSection from '@/components/frontend/home-page/our-team-section';
+import ProductionProcessSection from '@/components/frontend/home-page/production-process-section';
+import KeyServiceSection from '@/components/frontend/home-page/key-service-section';
+import TechnologiesSection from '@/components/frontend/home-page/technologies-section';
+import TestimonialsSection from '@/components/frontend/home-page/testimonial-section';
 
 import { FaArrowUp } from 'react-icons/fa';
 
