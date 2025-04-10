@@ -23,16 +23,21 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ children, title, activeSection, setActiveSection }: AdminLayoutProps) {
-    const { openMenus, toggleMenu } = useAdminContext();
+    const { openMenus, toggleMenu, activetab, toggleTab } = useAdminContext();
 
     const isActive = (href: string) =>
         window.location.pathname === href
-            ? 'flex items-center space-x-2 bg-gray-700 p-2 rounded'
-            : 'flex items-center space-x-2 hover:bg-gray-700 p-2 rounded';
+            ? 'flex items-center space-x-2 bg-gray-900 p-2 rounded border border-gray-500'
+            : 'flex items-center space-x-2 hover:bg-gray-700 p-2 rounded border border-gray-500';
 
     const { auth } = usePage<SharedData>().props; // Get the current route from usePage
 
     const handleSetActiveSection = setActiveSection || (() => { });
+
+    const handleLinkClick = (tab: string, href: string) => {
+        toggleTab(tab);  // Set the active tab
+        window.location.href = href;  // Redirect to the specified link
+    };
 
     return (
         <>
@@ -45,7 +50,14 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                     </div>
                     <nav className="flex-1 px-4 py-6 space-y-2 custom-scrollbar overflow-auto">
                         {/* Dashboard Link */}
-                        <Link href="/dashboard" className={isActive('/dashboard')}>
+                        <Link
+                            href="/dashboard"
+                            onClick={(e) => {
+                                e.preventDefault();  // Prevent default link behavior
+                                handleLinkClick('dashboard', '/dashboard');  // Set active tab and redirect
+                            }}
+                            className={`flex items-center space-x-2 p-2 rounded  ${activetab === 'dashboard' ? 'bg-gray-900 border border-gray-500' : 'hover:bg-gray-700'}`}
+                        >
                             <LayoutDashboard size={20} />
                             <span>Dashboard</span>
                         </Link>
@@ -53,8 +65,11 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                         {/* Home Page */}
                         <div>
                             <button
-                                onClick={() => toggleMenu('home')}
-                                className="w-full flex items-center justify-between hover:bg-gray-700 p-2 rounded"
+                                onClick={() => {
+                                    toggleMenu('home');
+                                    toggleTab('home');
+                                }}
+                                className={`w-full flex items-center justify-between p-2 rounded ${activetab === 'home' ? 'bg-gray-900 border border-gray-500' : 'hover:bg-gray-700'}`}
                             >
                                 <div className="flex items-center space-x-2">
                                     <Home size={20} />
@@ -62,6 +77,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                                 </div>
                                 {openMenus.home ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                             </button>
+
                             {openMenus.home && (
                                 <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-home/slider" className={isActive('/dashboard/customize-home/slider')}>
@@ -95,8 +111,11 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                         {/* Services Page */}
                         <div>
                             <button
-                                onClick={() => toggleMenu('services')}
-                                className="w-full flex items-center justify-between hover:bg-gray-700 p-2 rounded"
+                                onClick={() => {
+                                    toggleMenu('services');
+                                    toggleTab('services'); // Set active tab to "services"
+                                }}
+                                className={`w-full flex items-center justify-between p-2 rounded ${activetab === 'services' ? 'bg-gray-900 border border-gray-500' : 'hover:bg-gray-700'}`}
                             >
                                 <div className="flex items-center space-x-2">
                                     <Briefcase size={20} />
@@ -104,8 +123,9 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                                 </div>
                                 {openMenus.services ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                             </button>
+
                             {openMenus.services && (
-                                <div className="ml-6 mt-2 space-y-2 text-sm custom-link">
+                                <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-services/main-header" className={isActive('/dashboard/customize-services/main-header')}>
                                         <span>Customize Main Header</span>
                                     </Link>
@@ -119,8 +139,11 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                         {/* About Us Page */}
                         <div>
                             <button
-                                onClick={() => toggleMenu('about')}
-                                className="w-full flex items-center justify-between hover:bg-gray-700 p-2 rounded"
+                                onClick={() => {
+                                    toggleMenu('about');
+                                    toggleTab('about'); // Set active tab to "about"
+                                }}
+                                className={`w-full flex items-center justify-between p-2 rounded ${activetab === 'about' ? 'bg-gray-900 border border-gray-500' : 'hover:bg-gray-700'}`}
                             >
                                 <div className="flex items-center space-x-2">
                                     <Info size={20} />
@@ -129,7 +152,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                                 {openMenus.about ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                             </button>
                             {openMenus.about && (
-                                <div className="ml-6 mt-2 space-y-2 text-sm custom-link">
+                                <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-about/main-header" className={isActive('/dashboard/customize-about/main-header')}>
                                         <span>Customize Main Header</span>
                                     </Link>
@@ -149,8 +172,11 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                         {/* Contact Us Page */}
                         <div>
                             <button
-                                onClick={() => toggleMenu('contact')}
-                                className="w-full flex items-center justify-between hover:bg-gray-700 p-2 rounded"
+                                onClick={() => {
+                                    toggleMenu('contact');
+                                    toggleTab('contact'); // Set active tab to "contact"
+                                }}
+                                className={`w-full flex items-center justify-between p-2 rounded ${activetab === 'contact' ? 'bg-gray-900 border border-gray-500' : 'hover:bg-gray-700'}`}
                             >
                                 <div className="flex items-center space-x-2">
                                     <Phone size={20} />
@@ -159,7 +185,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                                 {openMenus.contact ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                             </button>
                             {openMenus.contact && (
-                                <div className="ml-6 mt-2 space-y-2 text-sm custom-link">
+                                <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-contact-us/main-content" className={isActive('/dashboard/customize-contact-us/main-content')}>
                                         <span>View Messages</span>
                                     </Link>
