@@ -3,6 +3,8 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 interface AdminContextType {
   openMenus: Record<string, boolean>;
   toggleMenu: (key: string) => void;
+  activetab: string;
+  toggleTab: (tab: string) => void;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -14,13 +16,18 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     about: false,
     contact: false,
   });
+  const [activetab, setActivetab] = useState('dashboard');
+
+  const toggleTab = (tab: string) => {
+    setActivetab(tab);
+  }
 
   const toggleMenu = (key: string) => {
     setOpenMenus((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
-    <AdminContext.Provider value={{ openMenus, toggleMenu }}>
+    <AdminContext.Provider value={{ openMenus, toggleMenu, activetab, toggleTab }}>
       {children}
     </AdminContext.Provider>
   );
