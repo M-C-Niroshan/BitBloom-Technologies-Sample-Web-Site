@@ -1,6 +1,8 @@
 import { type SharedData } from '@/types';
 import { ReactNode, useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useAdminContext } from '@/context/admin/Admin-context';
+
 import {
     LayoutDashboard,
     Home,
@@ -14,23 +16,14 @@ import {
 import { GrUserAdmin } from "react-icons/gr";
 
 interface AdminLayoutProps {
-  children: ReactNode;
-  title?: string;
-  setActiveSection?: (section: string) => void;
-  activeSection?: string;
+    children: ReactNode;
+    title?: string;
+    setActiveSection?: (section: string) => void;
+    activeSection?: string;
 }
 
 export default function AdminLayout({ children, title, activeSection, setActiveSection }: AdminLayoutProps) {
-    const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({
-        home: false,
-        services: false,
-        about: false,
-        contact: false
-    });
-
-    const toggleMenu = (key: string) => {
-        setOpenMenus((prev) => ({ ...prev, [key]: !prev[key] }));
-    };
+    const { openMenus, toggleMenu } = useAdminContext();
 
     const isActive = (href: string) =>
         window.location.pathname === href
@@ -39,7 +32,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
 
     const { auth } = usePage<SharedData>().props; // Get the current route from usePage
 
-    const handleSetActiveSection = setActiveSection || (() => {});
+    const handleSetActiveSection = setActiveSection || (() => { });
 
     return (
         <>
@@ -70,7 +63,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                                 {openMenus.home ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                             </button>
                             {openMenus.home && (
-                                <div className="ml-6 mt-2 space-y-2 text-sm custom-link">
+                                <div className="ml-6 mt-2 space-y-2 text-sm ">
                                     <Link href="/dashboard/customize-home/slider" className={isActive('/dashboard/customize-home/slider')}>
                                         <span>Slider</span>
                                     </Link>

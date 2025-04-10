@@ -166,5 +166,5 @@
   
   /* For Admin Dashboard sub options */
   .custom-link a {
-    @apply bg-gray-900 border border-gray-500 rounded px-3 py-2;
+    @apply bg-gray-900 border border-gray-500 rounded px-3 py-2 ;
   }
