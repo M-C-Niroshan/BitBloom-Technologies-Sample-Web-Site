@@ -68,6 +68,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
     *,
     ::after,
     ::before,
@@ -158,8 +159,27 @@
     }
 }
 
-  /* For Firefox */
-  .custom-scrollbar {
+/* For Firefox */
+.custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
-  }
+}
+
+@keyframes growToast {
+    0% {
+        width: 0;
+        padding-left: 0;
+        padding-right: 0;
+        opacity: 0;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        width: 320px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
