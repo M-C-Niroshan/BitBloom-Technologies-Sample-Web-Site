@@ -40,6 +40,8 @@ Route::controller(SliderController::class)->middleware(['auth', 'verified'])->gr
         return Inertia::render('admin/customize-home/customize-home-slider');
     })->name('customize-home/slider');
 
-    Route::get('/dashboard/customize-home/slider/getsliders', 'SliderIndex')->name('get.slider');
-    Route::post('/dashboard/customize-home/slider/store', 'SliderStore')->name('customize.home.slider.store');
+    Route::get('/dashboard/customize-home/slider/getsliders', 'SliderGet')->name('get.slider');
+    Route::post('/dashboard/customize-home/slider/store', 'SliderStore')->name('store.slider');
+    Route::post('/dashboard/customize-home/slider/update', 'SliderUpdate')->name('update.slider');
+    Route::post('/dashboard/customize-home/slider/delete', 'SliderDelete')->name('delete.slider');
 });
