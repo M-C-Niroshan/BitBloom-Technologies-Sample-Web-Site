@@ -19,7 +19,7 @@ export default function Customizeslider() {
         formData.append('description', description);
 
         try {
-            const result = await submitForm('/dashboard/customize-home/slider/store', formData, csrfToken);
+            await submitForm('/dashboard/customize-home/slider/store', formData, csrfToken);
 
             toast.success('Slider added successfully!');
 
@@ -29,6 +29,7 @@ export default function Customizeslider() {
             setDescription('');
         } catch (error) {
             toast.error('Failed to add slider. Please try again.');
+            console.error('Error adding slider:', error);
         }
     };
 
