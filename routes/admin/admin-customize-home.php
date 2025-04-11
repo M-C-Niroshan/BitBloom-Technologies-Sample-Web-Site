@@ -2,12 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\admin\SliderController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Customize Home Page Routes
-    Route::get('/dashboard/customize-home/slider', function () {
-        return Inertia::render('admin/customize-home/customize-home-slider');
-    })->name('customize-home/slider');
+
 
     Route::get('/dashboard/customize-home/main-header', function () {
         return Inertia::render('admin/customize-home/customize-home-main-header');
@@ -34,4 +33,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('admin/customize-home/customize-home-footer-content');
     })->name('customize-home/footer-content');
 
+});
+
+Route::controller(SliderController::class)->middleware(['auth', 'verified'])->group(function () {
+   /*  Route::get('/dashboard/customize-home/slider', function () {
+        return Inertia::render('admin/customize-home/customize-home-slider');
+    })->name('customize-home/slider'); */
+
+    Route::get('/dashboard/customize-home/slider', 'SliderIndex')->name('customize.home.slider');
+    Route::post('/dashboard/customize-home/slider/store', 'SliderStore')->name('customize.home.slider.store');
 });

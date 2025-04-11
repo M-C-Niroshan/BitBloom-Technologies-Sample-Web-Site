@@ -2,6 +2,7 @@ import { type SharedData } from '@/types';
 import { ReactNode, useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useAdminContext } from '@/context/admin/Admin-context';
+import { Toaster } from 'react-hot-toast';
 
 import {
     LayoutDashboard,
@@ -46,18 +47,18 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                 {/* Sidebar */}
                 <aside className="w-64 bg-[#1f2937] text-white flex flex-col ">
                     <div className="text-2xl font-bold p-6 border-b border-gray-700">
-                    <div className="flex items-center space-x-3 justify-center pr-3 ">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="35" height="35" >
-                        <g>
-                            <circle cx="50" cy="30" r="15" fill="#E74C3C" />
-                            <circle cx="65" cy="40" r="15" fill="#F39C12" />
-                            <circle cx="35" cy="40" r="15" fill="#1ABC9C" />
-                            <circle cx="50" cy="50" r="15" fill="#9B59B6" />
-                        </g>
-                    </svg>
+                        <div className="flex items-center space-x-3 justify-center pr-3 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="35" height="35" >
+                                <g>
+                                    <circle cx="50" cy="30" r="15" fill="#E74C3C" />
+                                    <circle cx="65" cy="40" r="15" fill="#F39C12" />
+                                    <circle cx="35" cy="40" r="15" fill="#1ABC9C" />
+                                    <circle cx="50" cy="50" r="15" fill="#9B59B6" />
+                                </g>
+                            </svg>
 
-                    <div className="text-xs font-bold">BitBloom Technologies</div>
-                </div>
+                            <div className="text-xs font-bold">BitBloom Technologies</div>
+                        </div>
                     </div>
                     <nav className="flex-1 px-4 py-6 space-y-2 custom-scrollbar overflow-auto">
                         {/* Dashboard Link */}
@@ -70,7 +71,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                             className={`flex items-center space-x-2 p-2 rounded  ${activetab === 'dashboard' ? 'bg-gray-900 border border-gray-500' : 'hover:bg-gray-700'}`}
                         >
                             <LayoutDashboard size={20} />
-                            <span>Dashboard</span>
+                            <span>Preview</span>
                         </Link>
 
                         {/* Home Page */}
@@ -211,7 +212,28 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
 
                 {/* Main Section */}
                 <div className="flex-1 flex flex-col">
-                    <header className="flex items-center justify-between px-6 py-4 border-b dark:border-gray-800 bg-white dark:bg-[#111827]">
+                    <header className="flex items-center justify-between px-6 py-4 border-b dark:border-gray-800 bg-white dark:bg-[#111827] ">
+                        <div className="relative w-96 -mt-10">
+                            <Toaster
+                                position="top-left"
+                                containerStyle={{ position: 'static' }}
+                                toastOptions={{
+                                    duration: 3000,
+                                    style: {
+                                        background: '#fff',
+                                        border: '1px solid #e2e8f0',
+                                        padding: '0px', // Start with no padding to avoid height jump
+                                        color: '#111',
+                                        borderRadius: '0.5rem',
+                                        width: '0px',
+                                        height: '40px', // Fixed height to avoid wrapping
+                                        overflow: 'hidden',
+                                        animation: 'growToast 0.4s ease-out forwards',
+                                        whiteSpace: 'nowrap', // Prevent wrapping of toast text
+                                    },
+                                }}
+                            />
+                        </div>
                         {title ? (<h1 className="text-xl font-semibold">{title}</h1>) : (<></>)}
                         <div className="flex gap-4">
                             {window.location.pathname === '/dashboard' && (
