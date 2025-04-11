@@ -15,7 +15,7 @@ export default function Slider() {
             const data = await fetchData('/dashboard/customize-home/slider/getsliders');
             setSliders(data);
         } catch (error) {
-            console.log('Failed to load sliders.');
+            console.log('Failed to load sliders.',error);
         }
     };
     

@@ -23,6 +23,7 @@ export default function Customizeslider() {
             setSliders(data);
         } catch (error) {
             toast.error('Failed to load sliders.');
+            console.log(error)
         }
     };
 
@@ -50,6 +51,7 @@ export default function Customizeslider() {
             loadSliders();
         } catch (error) {
             toast.error('Failed to add slider.');
+            console.log(error)
         }
     };
 
@@ -70,6 +72,7 @@ export default function Customizeslider() {
             loadSliders();
         } catch (error) {
             toast.error('Update failed.');
+            console.log(error)
         }
     };
 
@@ -85,6 +88,7 @@ export default function Customizeslider() {
             loadSliders();
         } catch (error) {
             toast.error('Failed to delete slider.');
+            console.log(error)
         }
     };
 
