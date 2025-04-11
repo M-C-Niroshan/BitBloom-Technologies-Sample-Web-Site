@@ -5,13 +5,20 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Storage;
 
 class SliderController extends Controller
 {
     public function SliderIndex()
     {
-        return inertia('admin/customize-home/customize-home-slider');
+        $sliders = Slider::all()->map(function ($slider) {
+            $slider->src = Storage::url($slider->src); // e.g., /storage/slides/filename.jpg
+            return $slider;
+        });
+
+        return response()->json($sliders);
     }
+
     public function SliderStore(Request $request)
     {
         $request->validate([

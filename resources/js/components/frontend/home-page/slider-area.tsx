@@ -1,72 +1,22 @@
 import { Link } from '@inertiajs/react';
-import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import { motion } from "framer-motion";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdAlternateEmail } from "react-icons/md";
+import Slider from './sub-component/slider';
 
 interface SliderArea {
     admin_mode?: boolean;
 }
 export default function SliderArea({ admin_mode }: SliderArea) {
-    const slides = [
-        {
-            src: '/images/slide_show/slide_show_1.jpeg',
-            caption: 'Innovating Together — Tailored Tech for Your Vision',
-        },
-        {
-            src: '/images/slide_show/slide_show_2.webp',
-            caption: 'Empowering Ideas Through Seamless Solutions',
-        },
-        {
-            src: '/images/slide_show/slide_show_3.webp',
-            caption: 'Where Technology Meets Simplicity and Style',
-        },
-        {
-            src: '/images/slide_show/slide_show_4.webp',
-            caption: 'A Team That Cares. A Process That Works.',
-        },
-        {
-            src: '/images/slide_show/slide_show_6.jpg',
-            caption: 'Creating Mobile Experiences People Love',
-        },
-        {
-            src: '/images/slide_show/slide_show_7.jpg',
-            caption: 'Smart Cloud Solutions Built for Scalability',
-        },
-        {
-            src: '/images/slide_show/slide_show_8.jpg',
-            caption: 'Driven by Purpose. Powered by Innovation.',
-        },
-    ]
+    
     return (
         <>
             {/* Slideshow and description side by side */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-10 mb-12">
+                
                 {/* Slideshow Left Side */}
-                <div className="w-full md:w-1/2 max-w-xl rounded overflow-hidden shadow-lg relative">
-                    <Fade
-                        duration={2000}
-                        transitionDuration={500}
-                        arrows={false}
-                        autoplay={true}
-                        infinite={true}
-                        indicators={false}
-                    >
-                        {slides.map((slide, index) => (
-                            <div key={index} className="each-slide-effect relative">
-                                <div className="absolute bottom-0 left-0 w-full bg-black/50 text-white text-sx px-4 py-8 z-10">
-                                    {slide.caption}
-                                </div>
-                                <img
-                                    src={slide.src}
-                                    alt={`Slide ${index + 1}`}
-                                    className="w-full h-[350px] "
-                                />
-                            </div>
-                        ))}
-                    </Fade>
-                </div>
+                <Slider/>
 
 
                 {/* Description Right Side of the slide-show*/}

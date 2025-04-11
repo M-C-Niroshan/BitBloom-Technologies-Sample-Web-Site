@@ -1,13 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminLayout from '@/layouts/admin/admin-layout';
-import SliderArea from '@/components/frontend/home-page/slider-area';
+import Slider from '@/components/frontend/home-page/sub-component/slider';
+import { fetchData } from '@/utility/fetchData';
 import { submitForm } from '@/utility/submitForm';
 import toast from 'react-hot-toast';
 
 export default function Customizeslider() {
     const [showModal, setShowModal] = useState(false);
+    const [sliders, setSliders] = useState<{ src: string; caption: string }[]>([]);
     const [image, setImage] = useState<File | null>(null);
     const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        loadSliders();
+    }, []);
+
+    const loadSliders = async () => {
+        try {
+            const data = await fetchData('/dashboard/customize-home/slider/getsliders');
+            setSliders(data);
+        } catch (error) {
+            toast.error('Failed to load sliders.');
+        }
+    };
 
     const handleSave = async () => {
         if (!image || !description) return;
@@ -36,21 +51,43 @@ export default function Customizeslider() {
     return (
         <div>
             <AdminLayout title="">
-                <div className="flex flex-col gap-4 w-full border">
-                    <SliderArea admin_mode={true} />
+                <div className=" w-full">
+                    <Slider />
+                    <div className="flex pt-3">
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        >
+                            + Add New Slider
+                        </button>
+                    </div>
                 </div>
 
-                <p className="text-2xl font-bold mt-4 mb-4 pt-3">
-                    Customize Home Page Slider
-                </p>
-
-                <div className="flex items-center justify-between">
-                    <button
-                        onClick={() => setShowModal(true)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                    >
-                        + Add New Slider
-                    </button>
+                <div className="mt-3 pb-3 border rounded-md overflow-hidden">
+                    <div className="max-h-80 overflow-y-auto">
+                        <table className="min-w-full text-sm text-left border-separate border-spacing-0">
+                            <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 z-10">
+                                <tr>
+                                    <th className="border-b px-4 py-3 sticky top-0 bg-inherit">Image</th>
+                                    <th className="border-b px-4 py-3 sticky top-0 bg-inherit">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody className="border">
+                                {sliders.map((slider, idx) => (
+                                    <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                                        <td className="border-b px-4 py-2">
+                                            <img
+                                                src={slider.src}
+                                                alt="Slider"
+                                                className="w-20 h-14 object-cover rounded shadow"
+                                            />
+                                        </td>
+                                        <td className="border-b px-4 py-2">{slider.caption}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {showModal && (

@@ -46,9 +46,9 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
             <div className="flex h-screen bg-background text-foreground">
                 {/* Sidebar */}
                 <aside className="w-64 bg-[#1f2937] text-white flex flex-col ">
-                    <div className="text-2xl font-bold p-6 border-b border-gray-700">
+                    <div className="text-2xl font-bold p-6 border-b border-gray-700 py-4">
                         <div className="flex items-center space-x-3 justify-center pr-3 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="35" height="35" >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" >
                                 <g>
                                     <circle cx="50" cy="30" r="15" fill="#E74C3C" />
                                     <circle cx="65" cy="40" r="15" fill="#F39C12" />
@@ -56,7 +56,6 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
                                     <circle cx="50" cy="50" r="15" fill="#9B59B6" />
                                 </g>
                             </svg>
-
                             <div className="text-xs font-bold">BitBloom Technologies</div>
                         </div>
                     </div>
