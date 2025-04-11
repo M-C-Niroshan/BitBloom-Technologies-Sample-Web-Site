@@ -36,10 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::controller(SliderController::class)->middleware(['auth', 'verified'])->group(function () {
-   /*  Route::get('/dashboard/customize-home/slider', function () {
+    Route::get('/dashboard/customize-home/slider', function () {
         return Inertia::render('admin/customize-home/customize-home-slider');
-    })->name('customize-home/slider'); */
+    })->name('customize-home/slider');
 
-    Route::get('/dashboard/customize-home/slider', 'SliderIndex')->name('customize.home.slider');
-    Route::post('/dashboard/customize-home/slider/store', 'SliderStore')->name('customize.home.slider.store');
+    Route::get('/dashboard/customize-home/slider/getsliders', 'SliderGet')->name('get.slider');
+    Route::post('/dashboard/customize-home/slider/store', 'SliderStore')->name('store.slider');
+    Route::post('/dashboard/customize-home/slider/update', 'SliderUpdate')->name('update.slider');
+    Route::post('/dashboard/customize-home/slider/delete', 'SliderDelete')->name('delete.slider');
 });
