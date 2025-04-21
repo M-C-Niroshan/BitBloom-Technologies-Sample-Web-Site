@@ -1,50 +1,24 @@
+import { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 
 export default function OurTeamSection() {
-    const company_team = [
-        {
-            name: "Nirushan Perera",
-            role: "Co-Founder & CTO",
-            img: "/images/team/nirushan.jpeg",
-        },
-        {
-            name: "Sajith Ranasinghe",
-            role: "Lead Frontend Engineer",
-            img: "/images/team/sajith.jpg",
-        },
-        {
-            name: "Tharushi Weerasinghe",
-            role: "UI/UX Designer",
-            img: "/images/team/tharushi.jpg",
-        },
-        {
-            name: "Roshan Silva",
-            role: "Backend Developer",
-            img: "/images/team/roshan.jpg",
-        },
-        {
-            name: "Nimali Jayasinghe",
-            role: "UI/UX Designer",
-            img: "/images/team/Nimali.jpg",
-        },
-        {
-            name: "Bankuka Silva",
-            role: "Backend Developer",
-            img: "/images/team/Bankuka.jpg",
-        },
 
-        {
-            name: "Shehara Senevirathna",
-            role: "UI/UX Designer",
-            img: "/images/team/Shehara.jpg",
-        },
-        {
-            name: "Niroshan Preapa",
-            role: "Backend Developer",
-            img: "/images/team/Niroshan.jpg",
-        },
-    ];
-    
+    const [teamMembers, setTeamMembers] = useState([]);
+    useEffect(() => {
+        loadHeaderData();
+    }, []);
+
+    const loadHeaderData = async () => {
+        try {
+            fetch('/dashboard/customize-home/team-members/getTeamMembers')
+                .then((res) => res.json())
+                .then((data) => setTeamMembers(data));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
 
         <>
@@ -56,7 +30,7 @@ export default function OurTeamSection() {
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-w-6xl mx-auto">
-                    {company_team.map((member, index) => (
+                    {teamMembers.map((member: any, index: number) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -66,11 +40,11 @@ export default function OurTeamSection() {
                             className="flex flex-col items-center bg-[#1F2833] rounded-xl p-6 shadow-lg hover:shadow-blue-600/30 transition-shadow duration-300"
                         >
                             <img
-                                src={member.img}
-                                alt={member.name}
+                                src={member.profilePicture}
+                                alt={member.fullName}
                                 className="w-24 h-24 object-cover rounded-full border-4 border-blue-600 mb-4"
                             />
-                            <h4 className="text-white text-lg font-semibold">{member.name}</h4>
+                            <h4 className="text-white text-lg font-semibold">{member.fullName}</h4>
                             <p className="text-sm text-gray-400">{member.role}</p>
                         </motion.div>
                     ))}
