@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import AdminLayout from '@/layouts/admin/admin-layout';
+import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
 export default function CustomizeTeamMembers() {
@@ -13,6 +14,7 @@ export default function CustomizeTeamMembers() {
         profilePicture: null as File | null,
         preview: '',
     });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadHeaderData();
@@ -20,12 +22,15 @@ export default function CustomizeTeamMembers() {
 
     const loadHeaderData = async () => {
         try {
+            setLoading(true);
             fetch('/dashboard/customize-home/team-members/getTeamMembers')
                 .then((res) => res.json())
                 .then((data) => setTeamMembers(data));
         } catch (error) {
             toast.error('Failed to load header info');
             console.error(error);
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -88,7 +93,6 @@ export default function CustomizeTeamMembers() {
                 },
                 body: form,
             });
-            //location.reload();
             setShowModal(false);
             loadHeaderData();
             toast.success('Submited successfully!');
@@ -103,7 +107,7 @@ export default function CustomizeTeamMembers() {
     const handleDelete = async (id: number) => {
         const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
         if (confirm('Are you sure you want to delete this member?')) {
-            try{
+            try {
                 await fetch('/dashboard/customize-home/team-members/delete', {
                     method: 'POST',
                     headers: {
@@ -115,7 +119,7 @@ export default function CustomizeTeamMembers() {
                 loadHeaderData();
                 toast.success('Deleted successfull!');
             }
-            catch (error){
+            catch (error) {
                 toast.error('Delete Failed');
                 console.error(error);
             }
@@ -125,7 +129,7 @@ export default function CustomizeTeamMembers() {
     };
 
     return (
-        <AdminLayout title="Dashboard">
+        <AdminLayout title="" isloading={loading}>
             <div className="pt-20 pb-10 px-6 text-center bg-[#0B0C10] border-b border-gray-800 border">
                 <h2 className="text-4xl font-extrabold text-white mb-4">Meet Our Team</h2>
                 <p className="text-blue-400 text-lg mb-8 max-w-3xl mx-auto">
@@ -158,14 +162,17 @@ export default function CustomizeTeamMembers() {
                             <div className="flex space-x-4">
                                 <button
                                     onClick={() => handleOpenModal('edit', member)}
-                                    className="text-sm bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded"
+                                    className="inline-flex items-center px-3 py-1.5 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-600 hover:text-white transition"
                                 >
+                                    <FiEdit className="mr-1" />
                                     Edit
                                 </button>
+
                                 <button
                                     onClick={() => handleDelete(member.id)}
-                                    className="text-sm bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                                    className="inline-flex items-center px-3 py-1.5 text-sm text-red-600 border border-red-600 rounded hover:bg-red-600 hover:text-white transition"
                                 >
+                                    <FiTrash2 className="mr-1" />
                                     Delete
                                 </button>
                             </div>
