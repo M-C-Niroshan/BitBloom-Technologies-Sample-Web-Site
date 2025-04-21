@@ -3,6 +3,7 @@ import { ReactNode, useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useAdminContext } from '@/context/admin/Admin-context';
 import { Toaster } from 'react-hot-toast';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 import {
     LayoutDashboard,
@@ -21,9 +22,10 @@ interface AdminLayoutProps {
     title?: string;
     setActiveSection?: (section: string) => void;
     activeSection?: string;
+    isloading?: boolean;
 }
 
-export default function AdminLayout({ children, title, activeSection, setActiveSection }: AdminLayoutProps) {
+export default function AdminLayout({ children, title, activeSection, setActiveSection, isloading }: AdminLayoutProps) {
     const { openMenus, toggleMenu, activetab, toggleTab } = useAdminContext();
 
     const isActive = (href: string) =>
@@ -284,7 +286,7 @@ export default function AdminLayout({ children, title, activeSection, setActiveS
 
                     </header>
 
-                    <main className="flex-1 p-6 overflow-y-auto overflow-x-hidden">{children}</main>
+                    <main className="flex-1 p-6 overflow-y-auto overflow-x-hidden">{(isloading ? (<LoadingSpinner />) : (<>{children}</>))}</main>
                 </div>
 
             </div >

@@ -12,7 +12,7 @@ class SliderController extends Controller
     public function SliderGet()
     {
         $sliders = Slider::all()->map(function ($slider) {
-            $slider->src = Storage::url($slider->src); // e.g., /storage/slides/filename.jpg
+            $slider->src = Storage::url($slider->src);
             return $slider;
         });
 
