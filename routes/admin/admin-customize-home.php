@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\MainHeaderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\admin\SliderController;
@@ -44,4 +45,13 @@ Route::controller(SliderController::class)->middleware(['auth', 'verified'])->gr
     Route::post('/dashboard/customize-home/slider/store', 'SliderStore')->name('store.slider');
     Route::post('/dashboard/customize-home/slider/update', 'SliderUpdate')->name('update.slider');
     Route::post('/dashboard/customize-home/slider/delete', 'SliderDelete')->name('delete.slider');
+});
+
+Route::controller(MainHeaderController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/customize-home/main-header', function () {
+        return Inertia::render('admin/customize-home/customize-home-main-header');
+    })->name('customize-home/customize-home-main-header');
+
+    Route::get('/dashboard/customize-home/customize-home-main-header/getheaderinfo', 'MainHeaderGetInfo')->name('get.MainHeaderInfo');
+    Route::post('/dashboard/customize-home/customize-home-main-header/update', 'MainHeaderUpdate')->name('update.MainHeaderInfo');
 });
