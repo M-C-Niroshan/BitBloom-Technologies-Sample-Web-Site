@@ -1,21 +1,13 @@
 <?php
 
 use App\Http\Controllers\admin\MainHeaderController;
+use App\Http\Controllers\admin\TeamMembersCotroller;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\admin\SliderController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Customize Home Page Routes
-
-
-    Route::get('/dashboard/customize-home/main-header', function () {
-        return Inertia::render('admin/customize-home/customize-home-main-header');
-    })->name('customize-home/main-header');
-
-    Route::get('/dashboard/customize-home/team-members', function () {
-        return Inertia::render('admin/customize-home/customize-home-team-members');
-    })->name('customize-home/team-members');
+    // Customize Home Page Route
 
     Route::get('/dashboard/customize-home/key-services', function () {
         return Inertia::render('admin/customize-home/customize-home-key-services');
@@ -54,4 +46,15 @@ Route::controller(MainHeaderController::class)->middleware(['auth', 'verified'])
 
     Route::get('/dashboard/customize-home/customize-home-main-header/getheaderinfo', 'MainHeaderGetInfo')->name('get.MainHeaderInfo');
     Route::post('/dashboard/customize-home/customize-home-main-header/update', 'MainHeaderUpdate')->name('update.MainHeaderInfo');
+});
+
+Route::controller(TeamMembersCotroller::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/customize-home/team-members', function () {
+        return Inertia::render('admin/customize-home/customize-home-team-members');
+    })->name('customize-home/team-members');
+
+    Route::get('/dashboard/customize-home/team-members/getTeamMembers', 'GetTeamMembersInfo')->name('get.TeamMembers');
+    Route::post('/dashboard/customize-home/team-members/store', 'StoreTeamMembersInfo')->name('store.TeamMembers');
+    Route::post('/dashboard/customize-home/team-members/update', 'UpdateTeamMembersInfo')->name('update.TeamMembers');
+    Route::post('/dashboard/customize-home/team-members/delete', 'DeleteTeamMembersInfo')->name('delete.TeamMembers');
 });
