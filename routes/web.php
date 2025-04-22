@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\MainHeaderController;
+use App\Http\Controllers\admin\SliderController;
+use App\Http\Controllers\admin\TeamMembersCotroller;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,6 +21,16 @@ Route::get('/services', function () {
 Route::get('/contact', function () {
     return Inertia::render('frontend/contact');
 })->name('contact');
+
+Route::controller(SliderController::class)->group(function () {
+    Route::get('/dashboard/customize-home/slider/getsliders', 'SliderGet')->name('get.slider');
+});
+Route::controller(MainHeaderController::class)->group(function () {
+    Route::get('/dashboard/customize-home/customize-home-main-header/getheaderinfo', 'MainHeaderGetInfo')->name('get.MainHeaderInfo');
+});
+Route::controller(TeamMembersCotroller::class)->group(function () {
+    Route::get('/dashboard/customize-home/team-members/getTeamMembers', 'GetTeamMembersInfo')->name('get.TeamMembers');
+});
 
 require __DIR__.'/admin/admin-dashboard.php';
 require __DIR__.'/admin/admin-customize-home.php';
