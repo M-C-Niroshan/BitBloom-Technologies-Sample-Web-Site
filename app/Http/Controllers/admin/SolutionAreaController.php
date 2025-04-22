@@ -22,7 +22,7 @@ class SolutionAreaController extends Controller
 
         $path = $request->file('src')->store('solution_areas', 'public');
 
-        $area = SolutionArea::create([
+        SolutionArea::create([
             'caption' => $request->caption,
             'src' => '/storage/' . $path,
         ]);
