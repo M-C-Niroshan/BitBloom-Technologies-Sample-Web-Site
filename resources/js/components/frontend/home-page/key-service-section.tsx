@@ -6,7 +6,6 @@ import { FaMobileAlt } from "react-icons/fa";
 import { FaPiggyBank } from "react-icons/fa";
 import { MdDevices } from "react-icons/md";
 import { MdCheckCircle } from "react-icons/md";
-import { FaArrowUp } from 'react-icons/fa';
 
 export default function KeyServiceSection() {
     return (
