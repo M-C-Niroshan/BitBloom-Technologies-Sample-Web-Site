@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\TeamMembersCotroller;
@@ -30,6 +31,10 @@ Route::controller(MainHeaderController::class)->group(function () {
 });
 Route::controller(TeamMembersCotroller::class)->group(function () {
     Route::get('/dashboard/customize-home/team-members/getTeamMembers', 'GetTeamMembersInfo')->name('get.TeamMembers');
+});
+
+Route::controller(KeyServiceController::class)->group(function () {
+    Route::get('/dashboard/customize-home/key-services/getKeyServicesinfo', 'GetKeyServiceInfo')->name('get.KeyServicesInfo');
 });
 
 require __DIR__.'/admin/admin-dashboard.php';
