@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
 use App\Http\Controllers\admin\SliderController;
+use App\Http\Controllers\admin\SolutionAreaController;
 use App\Http\Controllers\admin\TeamMembersCotroller;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,9 @@ Route::controller(TeamMembersCotroller::class)->group(function () {
 
 Route::controller(KeyServiceController::class)->group(function () {
     Route::get('/dashboard/customize-home/key-services/getKeyServicesinfo', 'GetKeyServiceInfo')->name('get.KeyServicesInfo');
+});
+Route::controller(SolutionAreaController::class)->group(function () {
+    Route::get('/dashboard/customize-home/solution-area/getSolutionAreainfo', 'GetSolutionAreaInfo')->name('get.SolutionAreaInfo');
 });
 
 require __DIR__.'/admin/admin-dashboard.php';
