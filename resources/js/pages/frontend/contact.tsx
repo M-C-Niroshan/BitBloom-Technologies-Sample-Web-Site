@@ -1,17 +1,60 @@
+import { useEffect, useState } from 'react';
 import FrontEndLayout from '@/layouts/frontend/frontend-layout';
+import { type SharedData } from '@/types';
 import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
+import { usePage, Link } from '@inertiajs/react';
+import { Plus } from 'lucide-react';
+import { submitForm } from '@/utility/submitForm';
 interface ContactProps {
     admin_mode?: boolean;
     title?: string;
 }
 
 export default function Contact({ admin_mode, title }: ContactProps) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const { auth } = usePage<SharedData>().props; // Get the current route from usePage
+    const isLoggedIn = !!auth?.user;
+    const [form, setForm] = useState<{
+        fullName: string;
+        role: string;
+        companyName: string;
+        caption: string;
+        isShow: boolean;
+        src: File | null;
+    }>({
+        fullName: '',
+        role: '',
+        companyName: '',
+        caption: '',
+        isShow: true,
+        src: null,
+    });
+    const [preview, setPreview] = useState<string | null>(null);
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('fullName', form.fullName);
+        formData.append('role', form.role);
+        formData.append('companyName', form.companyName);
+        formData.append('caption', form.caption);
+        formData.append('isShow', form.isShow ? '1' : '0');
+        if (form.src) {
+            formData.append('src', form.src);
+        }
+
+        try {
+            const res = await submitForm('/dashboard/customize-home/feedbacks/store', formData, csrfToken);
+            setForm({ fullName: '', role: '', companyName: '', caption: '', isShow: true, src: null });
+            //display thank u page
+        } catch (error) {
+            //toast.error('Error submitting form');
+            console.log("Feedback Submit error:", error)
+        }
+    };
     return (
         <>
             <FrontEndLayout admin_mode={admin_mode} title={title}>
-                
                 <div className="flex min-h-screen flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a] dark:text-[#EDEDEC]">
 
                     {/* Content */}
@@ -60,29 +103,100 @@ export default function Contact({ admin_mode, title }: ContactProps) {
                                 initial={{ opacity: 0, x: 100 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.7 }}
-                                className="bg-[#F5F7FA] p-6 rounded-xl shadow-lg text-black"
+                                className="relative bg-[#F5F7FA] p-6 rounded-xl shadow-lg text-black"
                             >
-                                <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
-                                <p className="mb-6 text-sm">Fill out the form below and we will get back to you shortly.</p>
-
-                                <form className="space-y-4">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-medium">Full Name</label>
-                                        <input type="text" id="name" name="name" placeholder="Enter your full name" className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all" />
+                                {!isLoggedIn && (
+                                    <div
+                                        className="absolute inset-0 bg-white/70 backdrop-blur-md z-10 flex items-center justify-center rounded-xl"
+                                        onClick={() => {
+                                            const currentPath = window.location.pathname;
+                                            window.location.href = route('login') + `?redirect=${currentPath}`;
+                                        }}
+                                    >
+                                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">Login to Send Message</button>
                                     </div>
+                                )}
 
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-medium">Email Address</label>
-                                        <input type="email" id="email" name="email" placeholder="Enter your email address" className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all" />
-                                    </div>
+                                <div className={`${!isLoggedIn ? ' pointer-events-none select-none' : ''}`}>
+                                    <h2 className="text-2xl font-semibold mb-6">Send Us a Message</h2>
+                                    <p className="mb-6 text-sm">Fill out the form below and we will get back to you shortly.</p>
 
-                                    <div>
-                                        <label htmlFor="message" className="block text-sm font-medium">Message</label>
-                                        <textarea id="message" name="message" rows={5} placeholder="Write your message..." className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"></textarea>
-                                    </div>
+                                    <form className="space-y-4" onSubmit={handleSubmit}>
+                                        <div>
+                                            <label htmlFor="name" className="block text-sm font-medium">Full Name</label>
+                                            <input type="text"
+                                                placeholder="Full Name"
+                                                value={form.fullName}
+                                                onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                                                className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+                                                required
+                                            />
+                                        </div>
 
-                                    <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 duration-200">Send Message</button>
-                                </form>
+                                        <div>
+                                            <label htmlFor="role" className="block text-sm font-medium">Role</label>
+                                            <input type="text"
+                                                placeholder="Role"
+                                                value={form.role}
+                                                onChange={(e) => setForm({ ...form, role: e.target.value })}
+                                                className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="companyName" className="block text-sm font-medium">Company Name</label>
+                                            <input type="text"
+                                                placeholder="Company Name"
+                                                value={form.companyName}
+                                                onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+                                                className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label htmlFor="profilePicture" className="block text-sm font-medium mb-2">Profile Picture</label>
+
+                                            <div className="w-32 h-32 rounded-4xl border-2 border-dashed border-blue-600 flex items-center justify-center cursor-pointer overflow-hidden bg-gray-100 hover:opacity-80 transition"
+                                                onClick={() => document.getElementById('profileInput')?.click()}>
+                                                {preview ? (
+                                                    <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <Plus className="text-blue-600 w-10 h-10" />
+                                                )}
+                                            </div>
+
+                                            <input
+                                                id="profileInput"
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    if (e.target.files && e.target.files[0]) {
+                                                        const file = e.target.files[0];
+                                                        setForm({ ...form, src: file });
+                                                        setPreview(URL.createObjectURL(file));
+                                                    }
+                                                }}
+                                                className="hidden"
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="caption" className="block text-sm font-medium">Caption</label>
+                                            <textarea placeholder="Caption"
+                                                value={form.caption}
+                                                onChange={(e) => setForm({ ...form, caption: e.target.value })}
+                                                className="w-full p-3 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all"
+                                            >
+
+                                            </textarea>
+                                        </div>
+
+
+                                        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 duration-200">Send Message</button>
+                                    </form>
+                                </div>
                             </motion.div>
                         </div>
                     </div>

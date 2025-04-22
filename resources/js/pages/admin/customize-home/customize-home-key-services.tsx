@@ -121,8 +121,7 @@ export default function CustomizeKeyServices() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-white -mt-8">
                         {keyServices.map((service: any) => (
                             <div className="flex-col h-full bg-[#1F2833] rounded-xl shadow-lg p-6 border">
-                                <LuSquareArrowDownRight size={35} className='text-white mb-3' />
-                                <p className="font-semibold text-2xl mb-2 -mt-10">{service.mainTitle}</p>
+                                <p className="font-semibold text-2xl mb-2 ">{service.mainTitle}</p>
                                 <div className='border border-blue-600 w-3/4 mx-auto mb-4'></div>
                                 <ul className="text-sm space-y-2 text-left text-gray-300">
                                     {service.captions.map((caption: any, idx: number) => (

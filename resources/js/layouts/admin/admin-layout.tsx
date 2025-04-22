@@ -1,5 +1,5 @@
 import { type SharedData } from '@/types';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useAdminContext } from '@/context/admin/Admin-context';
 import { Toaster } from 'react-hot-toast';

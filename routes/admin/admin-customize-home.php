@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\FeedbacksController;
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
 use App\Http\Controllers\admin\SolutionAreaController;
 use App\Http\Controllers\admin\TeamMembersCotroller;
+use App\Http\Controllers\admin\TechnologiesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\admin\SliderController;
@@ -11,12 +13,8 @@ use App\Http\Controllers\admin\SliderController;
 Route::middleware(['auth', 'verified'])->group(function () {
     // Customize Home Page Route
 
-    Route::get('/dashboard/customize-home/technologies', function () {
-        return Inertia::render('admin/customize-home/customize-home-technologies');
-    })->name('customize-home/technologies');
-    Route::get('/dashboard/customize-home/feedbacks', function () {
-        return Inertia::render('admin/customize-home/customize-home-feedbacks');
-    })->name('customize-home/feedbacks');
+
+
     Route::get('/dashboard/customize-home/footer-content', function () {
         return Inertia::render('admin/customize-home/customize-home-footer-content');
     })->name('customize-home/footer-content');
@@ -68,4 +66,23 @@ Route::controller(SolutionAreaController::class)->middleware(['auth', 'verified'
 
     Route::post('/dashboard/customize-home/solution-area/store', 'StoreSolutionArea')->name('store.solutionArea');
     Route::post('/dashboard/customize-home/solution-area/delete', 'DeleteSolutionArea')->name('delete.solutionArea');
+});
+// TechnologiesController >>>
+Route::controller(TechnologiesController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/customize-home/technologies', function () {
+        return Inertia::render('admin/customize-home/customize-home-technologies');
+    })->name('customize-home/technologies');
+
+    Route::post('/dashboard/customize-home/technologies/store', 'StoreSolutionArea')->name('store.Technologies');
+    Route::post('/dashboard/customize-home/technologies/delete', 'DeleteSolutionArea')->name('delete.Technologies');
+});
+// FeedBacksController >>>
+Route::controller(FeedbacksController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/customize-home/feedbacks', function () {
+        return Inertia::render('admin/customize-home/customize-home-feedbacks');
+    })->name('customize-home/feedbacks');
+
+    Route::post('/dashboard/customize-home/feedbacks/store', 'StoreFeedbacks')->name('store.Feedbacks');
+    Route::post('/dashboard/customize-home/feedbacks/update', 'UpdateFeedbacks')->name('update.Feedbacks');
+    Route::post('/dashboard/customize-home/feedbacks/delete', 'DeleteFeedbacks')->name('delete.Feedbacks');
 });

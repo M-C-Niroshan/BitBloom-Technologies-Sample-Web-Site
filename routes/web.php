@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\admin\FeedbacksController;
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\SolutionAreaController;
 use App\Http\Controllers\admin\TeamMembersCotroller;
+use App\Http\Controllers\admin\TechnologiesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -40,7 +42,12 @@ Route::controller(KeyServiceController::class)->group(function () {
 Route::controller(SolutionAreaController::class)->group(function () {
     Route::get('/dashboard/customize-home/solution-area/getSolutionAreainfo', 'GetSolutionAreaInfo')->name('get.SolutionAreaInfo');
 });
-
+Route::controller(TechnologiesController::class)->group(function () {
+    Route::get('/dashboard/customize-home/solution-area/getTechnologiesinfo', 'GetTechnologiesInfo')->name('get.TechnologiesInfo');
+});
+Route::controller(FeedbacksController::class)->group(function () {
+    Route::get('/dashboard/customize-home/feedbacks/getFeedbacksinfo', 'GetFeedbacksInfo')->name('get.FeedbacksInfo');
+});
 require __DIR__.'/admin/admin-dashboard.php';
 require __DIR__.'/admin/admin-customize-home.php';
 require __DIR__.'/admin/admin-customize-services.php';
