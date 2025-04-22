@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { LuSquareArrowDownRight } from "react-icons/lu";
 import { motion } from "framer-motion";
 import { MdFactory } from "react-icons/md";
@@ -8,6 +9,22 @@ import { MdDevices } from "react-icons/md";
 import { MdCheckCircle } from "react-icons/md";
 
 export default function KeyServiceSection() {
+    const [keyServices, setKeyServices] = useState<{ id: number; mainTitle: string; captions: { caption: string }[] }[]>([]);
+
+    useEffect(() => {
+        loadHeaderData();
+    }, []);
+
+    const loadHeaderData = async () => {
+        try {
+            const res = await fetch('/dashboard/customize-home/key-services/getKeyServicesinfo');
+            const data = await res.json();
+            setKeyServices(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
             {/* Key Services */}
@@ -17,78 +34,20 @@ export default function KeyServiceSection() {
                     Every great product starts with a solid process. Here's how we partner with you — from the first chat to long-term support.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-white -mt-8">
-                    {/* Web Development */}
-                    <motion.div
-                        className="flex-col h-full p-2 shadow-md rounded-lg"
-                        initial={{ opacity: 0, x: +200 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        viewport={{ once: true }}
-                    >
-                        <div className="flex-col h-full bg-[#1F2833] rounded-xl shadow-lg p-6 ">
-                            <LuSquareArrowDownRight size={35} className='text-white mb-3' />
-                            <p className="font-semibold text-2xl mb-2 -mt-10">Web Development</p>
-                            <div className='border border-blue-600 w-3/4 mx-auto mb-4 '></div>
-                            <ul className="text-sm space-y-2 text-left text-gray-300">
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Responsive & SEO-optimized sites</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Custom CMS & admin panels</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> E-commerce & payment integration</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> RESTful APIs & third-party integration</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Fast loading & high-performance builds</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Cross-browser & device compatibility</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Ongoing support & feature enhancements</li>
-                            </ul>
-                        </div>
-                    </motion.div>
-
-                    {/* Mobile App Development */}
-                    <motion.div
-                        className="flex-col h-full p-2 shadow-md rounded-lg"
-                        initial={{ opacity: 0, y: 0 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true }}
-                    >
+                    {keyServices.map((service: any) => (
                         <div className="flex-col h-full bg-[#1F2833] rounded-xl shadow-lg p-6 border">
                             <LuSquareArrowDownRight size={35} className='text-white mb-3' />
-                            <p className="font-semibold text-2xl mb-2 -mt-10">Mobile App Development</p>
+                            <p className="font-semibold text-2xl mb-2 -mt-10">{service.mainTitle}</p>
                             <div className='border border-blue-600 w-3/4 mx-auto mb-4'></div>
                             <ul className="text-sm space-y-2 text-left text-gray-300">
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Scalable infrastructure on AWS & GCP</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Dockerized deployment pipelines</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> CI/CD setup for rapid delivery</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Automated backups & monitoring</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> High availability & disaster recovery</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> API management & microservices support</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Security best practices & compliance</li>
+                                {service.captions.map((caption: any, idx: number) => (
+                                    <li key={idx} className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> <p className='-mt-1'>{caption.caption}</p></li>
+                                ))}
                             </ul>
                         </div>
-                    </motion.div>
-
-                    {/* Cloud Solutions */}
-                    <motion.div
-                        className="flex-col h-full p-2 shadow-md rounded-lg"
-                        initial={{ opacity: 0, x: -200 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        viewport={{ once: true }}
-                    >
-                        <div className="flex-col h-full bg-[#1F2833] rounded-xl shadow-lg p-6 border">
-                            <LuSquareArrowDownRight size={35} className='text-white mb-3' />
-                            <p className="font-semibold text-2xl mb-2 -mt-10">Cloud Solutions</p>
-                            <div className='border border-blue-600 w-3/4 mx-auto mb-4'></div>
-                            <ul className="text-sm space-y-2 text-left text-gray-300">
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Scalable infrastructure on AWS & GCP</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Dockerized deployment pipelines</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> CI/CD setup for rapid delivery</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Automated backups & monitoring</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> High availability & disaster recovery</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> API management & microservices support</li>
-                                <li className="flex items-start gap-2"><MdCheckCircle className="text-blue-500" /> Security best practices & compliance</li>
-                            </ul>
-                        </div>
-                    </motion.div>
+                    ))}
                 </div>
+                
                 {/* Solution Areas */}
                 <motion.div
                     className="flex-col h-full p-2 shadow-md rounded-lg"

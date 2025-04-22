@@ -46,7 +46,7 @@ Route::controller(TeamMembersCotroller::class)->middleware(['auth', 'verified'])
     Route::get('/dashboard/customize-home/team-members', function () {
         return Inertia::render('admin/customize-home/customize-home-team-members');
     })->name('customize-home/team-members');
-    
+
     Route::post('/dashboard/customize-home/team-members/store', 'StoreTeamMembersInfo')->name('store.TeamMembers');
     Route::post('/dashboard/customize-home/team-members/update', 'UpdateTeamMembersInfo')->name('update.TeamMembers');
     Route::post('/dashboard/customize-home/team-members/delete', 'DeleteTeamMembersInfo')->name('delete.TeamMembers');
@@ -57,7 +57,6 @@ Route::controller(KeyServiceController::class)->middleware(['auth', 'verified'])
         return Inertia::render('admin/customize-home/customize-home-key-services');
     })->name('customize-home/key-services');
 
-    Route::get('/dashboard/customize-home/key-services/getKeyServicesinfo', 'GetKeyServiceInfo')->name('get.KeyServicesInfo');
     Route::post('/dashboard/customize-home/key-services/store', 'StoreKeyServices')->name('store.KeyServices');
     Route::post('/dashboard/customize-home/key-services/update', 'UpdateKeyServices')->name('update.KeyServices');
     Route::post('/dashboard/customize-home/key-services/delete', 'DeleteKeyServices')->name('delete.KeyServices');

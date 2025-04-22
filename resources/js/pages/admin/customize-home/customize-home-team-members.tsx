@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import AdminLayout from '@/layouts/admin/admin-layout';
+import { submitForm } from '@/utility/submitForm';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
@@ -15,6 +16,8 @@ export default function CustomizeTeamMembers() {
         preview: '',
     });
     const [loading, setLoading] = useState(true);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
 
     useEffect(() => {
         loadHeaderData();
@@ -23,13 +26,13 @@ export default function CustomizeTeamMembers() {
     const loadHeaderData = async () => {
         try {
             setLoading(true);
-            fetch('/dashboard/customize-home/team-members/getTeamMembers')
-                .then((res) => res.json())
-                .then((data) => setTeamMembers(data));
+            const res = await fetch('/dashboard/customize-home/team-members/getTeamMembers')
+            const data = await res.json();
+            setTeamMembers(data)
         } catch (error) {
             toast.error('Failed to load header info');
             console.error(error);
-        }finally{
+        } finally {
             setLoading(false);
         }
     };
@@ -86,13 +89,7 @@ export default function CustomizeTeamMembers() {
                 ? '/dashboard/customize-home/team-members/store'
                 : '/dashboard/customize-home/team-members/update';
         try {
-            await fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': token || '',
-                },
-                body: form,
-            });
+            await submitForm(endpoint, form, csrfToken);
             setShowModal(false);
             loadHeaderData();
             toast.success('Submited successfully!');
@@ -105,17 +102,11 @@ export default function CustomizeTeamMembers() {
     };
 
     const handleDelete = async (id: number) => {
-        const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        const formData = new FormData();
+        formData.append('id', id.toString());
         if (confirm('Are you sure you want to delete this member?')) {
             try {
-                await fetch('/dashboard/customize-home/team-members/delete', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': token || '',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id }),
-                });
+                await submitForm('/dashboard/customize-home/team-members/delete', formData, csrfToken);
                 loadHeaderData();
                 toast.success('Deleted successfull!');
             }
@@ -130,7 +121,7 @@ export default function CustomizeTeamMembers() {
 
     return (
         <AdminLayout title="" isloading={loading}>
-            <div className="pt-20 pb-10 px-6 text-center bg-[#0B0C10] border-b border-gray-800 border">
+            <div className="pt-20 pb-10 px-6 text-center bg-[#0B0C10] border-b border-gray-800 border rounded-lg">
                 <h2 className="text-4xl font-extrabold text-white mb-4">Meet Our Team</h2>
                 <p className="text-blue-400 text-lg mb-8 max-w-3xl mx-auto">
                     Our dedicated professionals bring passion, expertise, and innovation to every project.
@@ -183,7 +174,7 @@ export default function CustomizeTeamMembers() {
 
             {/* Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 text-black">
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 ">
                     <div className="bg-white text-black rounded-lg p-6 w-[90%] max-w-md">
                         <h3 className="text-xl font-bold mb-4">
                             {modalType === 'add' ? 'Add New Member' : 'Update Member Info'}
