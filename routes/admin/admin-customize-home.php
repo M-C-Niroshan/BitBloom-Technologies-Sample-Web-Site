@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
+use App\Http\Controllers\admin\SolutionAreaController;
 use App\Http\Controllers\admin\TeamMembersCotroller;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -9,9 +10,7 @@ use App\Http\Controllers\admin\SliderController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Customize Home Page Route
-    Route::get('/dashboard/customize-home/solution-area', function () {
-        return Inertia::render('admin/customize-home/customize-home-solution-area');
-    })->name('customize-home/solution-area');
+
     Route::get('/dashboard/customize-home/technologies', function () {
         return Inertia::render('admin/customize-home/customize-home-technologies');
     })->name('customize-home/technologies');
@@ -60,4 +59,13 @@ Route::controller(KeyServiceController::class)->middleware(['auth', 'verified'])
     Route::post('/dashboard/customize-home/key-services/store', 'StoreKeyServices')->name('store.KeyServices');
     Route::post('/dashboard/customize-home/key-services/update', 'UpdateKeyServices')->name('update.KeyServices');
     Route::post('/dashboard/customize-home/key-services/delete', 'DeleteKeyServices')->name('delete.KeyServices');
+});
+// SolutionAreaController >>>
+Route::controller(SolutionAreaController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/customize-home/solution-area', function () {
+        return Inertia::render('admin/customize-home/customize-home-solution-area');
+    })->name('customize-home/solution-area');
+
+    Route::post('/dashboard/customize-home/solution-area/store', 'StoreSolutionArea')->name('store.solutionArea');
+    Route::post('/dashboard/customize-home/solution-area/delete', 'DeleteSolutionArea')->name('delete.solutionArea');
 });

@@ -10,12 +10,13 @@ import { MdCheckCircle } from "react-icons/md";
 
 export default function KeyServiceSection() {
     const [keyServices, setKeyServices] = useState<{ id: number; mainTitle: string; captions: { caption: string }[] }[]>([]);
-
+    const [solutionAreas, setSolutionAreas] = useState<any[]>([]);
     useEffect(() => {
-        loadHeaderData();
+        loadKeyServicesData();
+        loadSolutionAreaData();
     }, []);
 
-    const loadHeaderData = async () => {
+    const loadKeyServicesData = async () => {
         try {
             const res = await fetch('/dashboard/customize-home/key-services/getKeyServicesinfo');
             const data = await res.json();
@@ -24,7 +25,15 @@ export default function KeyServiceSection() {
             console.error(error);
         }
     };
-
+    const loadSolutionAreaData = async () => {
+        try {
+            const res = await fetch('/dashboard/customize-home/solution-area/getSolutionAreainfo');
+            const data = await res.json();
+            setSolutionAreas(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <>
             {/* Key Services */}
@@ -47,7 +56,7 @@ export default function KeyServiceSection() {
                         </div>
                     ))}
                 </div>
-                
+
                 {/* Solution Areas */}
                 <motion.div
                     className="flex-col h-full p-2 shadow-md rounded-lg"
@@ -63,35 +72,12 @@ export default function KeyServiceSection() {
 
                         {/* Solution Area Icons */}
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-                            {/* Manufacturing */}
-                            <div className="flex-col p-4">
-                                <MdFactory size={40} className="text-blue-500 mb-4 mx-auto" />
-                                <p className="text-white text-lg">Manufacturing</p>
-                            </div>
-
-                            {/* Logistics */}
-                            <div className="flex-col p-4">
-                                <FaShippingFast size={40} className="text-blue-500 mb-4 mx-auto" />
-                                <p className="text-white text-lg">Logistics</p>
-                            </div>
-
-                            {/* Digital and Telecommunications */}
-                            <div className="flex-col p-4">
-                                <FaMobileAlt size={40} className="text-blue-500 mb-4 mx-auto" />
-                                <p className="text-white text-lg">Digital & Telecommunications</p>
-                            </div>
-
-                            {/* Finance and Banking */}
-                            <div className="flex-col p-4">
-                                <FaPiggyBank size={40} className="text-blue-500 mb-4 mx-auto" />
-                                <p className="text-white text-lg">Finance & Banking</p>
-                            </div>
-
-                            {/* IOT */}
-                            <div className="flex-col p-4">
-                                <MdDevices size={40} className="text-blue-500 mb-4 mx-auto" />
-                                <p className="text-white text-lg">IoT</p>
-                            </div>
+                            {solutionAreas.map((area) => (
+                                <div key={area.id} className="flex-col relative p-4 border">
+                                    <img src={area.src} alt={area.caption} className="w-14 h-14 mx-auto mb-4 object-contain" />
+                                    <p className="text-white text-lg">{area.caption}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </motion.div>
