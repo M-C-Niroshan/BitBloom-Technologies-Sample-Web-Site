@@ -72,7 +72,7 @@ export default function CustomizeSolutionArea() {
         <AdminLayout title="" isloading={loading}>
             <div className="flex-col h-full border rounded-xl shadow-lg p-6 bg-[#0B0C10]">
                 <div className="text-center mb-6">
-                    <h4 className="text-4xl font-semibold mb-6 text-white">Solution Areas</h4>
+                    <h4 className="text-3xl font-semibold mb-6 text-white">Solution Areas</h4>
                 </div>
 
                 {/* Solution Areas Display */}

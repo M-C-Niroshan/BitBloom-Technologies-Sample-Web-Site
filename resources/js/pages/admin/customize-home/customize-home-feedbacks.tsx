@@ -50,30 +50,6 @@ export default function CustomizeFeedbacks() {
 
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setLoading(true);
-        const formData = new FormData();
-        formData.append('fullName', form.fullName);
-        formData.append('role', form.role);
-        formData.append('companyName', form.companyName);
-        formData.append('caption', form.caption);
-        formData.append('isShow', form.isShow ? '1' : '0');
-        if (form.src) {
-            formData.append('src', form.src);
-        }
-
-        try {
-            const res = await submitForm('/dashboard/customize-home/feedbacks/store', formData, csrfToken);
-            setForm({ fullName: '', role: '', companyName: '', caption: '', isShow: true, src: null });
-            getFeedbacks();
-            toast.success("Technology added!");
-        } catch (error) {
-            toast.error('Error submitting form');
-        }
-        setLoading(false);
-    };
-
     const handleDelete = async (id: number) => {
         const formData = new FormData();
         formData.append('id', id.toString());
@@ -111,9 +87,9 @@ export default function CustomizeFeedbacks() {
         <AdminLayout title="" isloading={loading}>
 
             {/* Feedbacks */}
-            <div className="py-20 pt-10 px-6 text-center bg-[#0B0C10] border rounded-xl shadow-lg">
+            <div className="py-20 pt-5 px-6 text-center bg-[#0B0C10] border rounded-xl shadow-lg">
                 <div className="text-center mb-6">
-                    <h4 className="text-4xl font-semibold mb-6 text-white">Manage Client Feedbacks</h4>
+                    <h4 className="text-3xl font-semibold mb-6 text-white">Manage Client Feedbacks</h4>
                 </div>
                 <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
                     {feedbacks.map((client) => (

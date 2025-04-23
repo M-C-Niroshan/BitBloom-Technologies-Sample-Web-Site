@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\FeedbacksController;
+use App\Http\Controllers\admin\footerController;
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
 use App\Http\Controllers\admin\SolutionAreaController;
@@ -12,14 +13,8 @@ use App\Http\Controllers\admin\SliderController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Customize Home Page Route
-
-
-
-    Route::get('/dashboard/customize-home/footer-content', function () {
-        return Inertia::render('admin/customize-home/customize-home-footer-content');
-    })->name('customize-home/footer-content');
-
 });
+
 // SliderController >>>
 Route::controller(SliderController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/customize-home/slider', function () {
@@ -85,4 +80,13 @@ Route::controller(FeedbacksController::class)->middleware(['auth', 'verified'])-
     Route::post('/dashboard/customize-home/feedbacks/store', 'StoreFeedbacks')->name('store.Feedbacks');
     Route::post('/dashboard/customize-home/feedbacks/update', 'UpdateFeedbacks')->name('update.Feedbacks');
     Route::post('/dashboard/customize-home/feedbacks/delete', 'DeleteFeedbacks')->name('delete.Feedbacks');
+});
+// FooterController >>>
+Route::controller(footerController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/customize-home/footer-content', function () {
+        return Inertia::render('admin/customize-home/customize-home-footer-content');
+    })->name('customize-home/footerContent');
+
+    Route::post('/dashboard/customize-home/footer-content/store', 'StoreFooterContent')->name('store.FooterContent');
+    Route::post('/dashboard/customize-home/footer-content/update', 'UpdateFooterContent')->name('update.FooterContent');
 });

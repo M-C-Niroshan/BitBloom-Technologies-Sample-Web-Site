@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\FeedbacksController;
+use App\Http\Controllers\admin\footerController;
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
 use App\Http\Controllers\admin\SliderController;
@@ -48,6 +49,10 @@ Route::controller(TechnologiesController::class)->group(function () {
 Route::controller(FeedbacksController::class)->group(function () {
     Route::get('/dashboard/customize-home/feedbacks/getFeedbacksinfo', 'GetFeedbacksInfo')->name('get.FeedbacksInfo');
 });
+Route::controller(footerController::class)->group(function () {
+    Route::get('/dashboard/customize-home/getFootercontent', 'GetFooterContent')->name('get.FooterContent');
+});
+
 require __DIR__.'/admin/admin-dashboard.php';
 require __DIR__.'/admin/admin-customize-home.php';
 require __DIR__.'/admin/admin-customize-services.php';

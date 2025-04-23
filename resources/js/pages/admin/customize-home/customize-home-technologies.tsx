@@ -75,9 +75,9 @@ export default function CustomizeTechnologies() {
 
     return (
         <AdminLayout title="" isloading={loading}>
-            <div className="py-20 pt-10 px-6 text-center bg-[#0B0C10] border rounded-xl shadow-lg">
+            <div className="py-20 pt-5 px-6 text-center bg-[#0B0C10] border rounded-xl shadow-lg">
                 <div className="text-center mb-6">
-                    <h4 className="text-4xl font-semibold mb-6 text-white">Technologies We Work With</h4>
+                    <h4 className="text-3xl font-semibold mb-6 text-white">Technologies We Work With</h4>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
                     {technologies.map((tech) => (

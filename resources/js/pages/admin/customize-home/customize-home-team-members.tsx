@@ -121,8 +121,8 @@ export default function CustomizeTeamMembers() {
 
     return (
         <AdminLayout title="" isloading={loading}>
-            <div className="pt-20 pb-10 px-6 text-center bg-[#0B0C10] border-b border-gray-800 border rounded-lg">
-                <h2 className="text-4xl font-extrabold text-white mb-4">Meet Our Team</h2>
+            <div className="pt-5 pb-10 px-6 text-center bg-[#0B0C10] border-b border-gray-800 border rounded-lg">
+                <h2 className="text-3xl font-extrabold text-white mb-4">Meet Our Team</h2>
                 <p className="text-blue-400 text-lg mb-8 max-w-3xl mx-auto">
                     Our dedicated professionals bring passion, expertise, and innovation to every project.
                 </p>
