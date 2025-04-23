@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
 import { FaPhoneAlt, FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { MdAlternateEmail } from 'react-icons/md';
 import { FaLocationDot } from 'react-icons/fa6';
@@ -7,6 +7,40 @@ interface FooterProps {
 }
 
 export function MainFooter({ admin_mode }: FooterProps) {
+    interface FooterData {
+        companyName?: string;
+        leftSideCaption?: string;
+        facebookURL?: string;
+        twitterURL?: string;
+        linkdinURL?: string;
+        instagramURL?: string;
+        headquartersAddress?: string;
+        inquiriesMailAddress?: string;
+        contactNumber?: string;
+        bottomCaption?: string;
+        notExists?: boolean;
+        id?: string;
+    }
+
+    const [footerData, setFooterData] = useState<FooterData | null>(null);
+
+    useEffect(() => {
+        getFooterContent();
+    }, []);
+
+    const getFooterContent = async () => {
+        try {
+
+            const res = await fetch('/dashboard/customize-home/getFootercontent');
+            const data = await res.json();
+            console.log(data)
+            setFooterData(data);
+
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div>
             <footer className="bg-[#0B0C10] text-white py-10 w-full">
@@ -14,11 +48,9 @@ export function MainFooter({ admin_mode }: FooterProps) {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 justify-between items-center w-full">
                         {/* Company Info Section */}
                         <div className='flex flex-col'>
-                            <h3 className="text-2xl font-semibold mb-4">BitBloom Technologies</h3>
+                            <h3 className="text-2xl font-semibold mb-4">{footerData?.companyName}</h3>
                             <p className="text-sm mb-6">
-                                We provide cutting-edge software solutions to help your business thrive in the digital world.
-                                From web and mobile development to cloud integration, we turn ideas into scalable, secure, and elegant systems.
-                            </p>
+                            {footerData?.leftSideCaption}</p>
                         </div>
 
                         {/* Quick Links Section */}
@@ -58,16 +90,16 @@ export function MainFooter({ admin_mode }: FooterProps) {
                         <div className='flex flex-col'>
                             <h3 className="text-2xl font-semibold mb-4">Follow Us</h3>
                             <div className="flex space-x-6 text-blue-600">
-                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                                <a href={footerData?.facebookURL || "#"} target="_blank" rel="noopener noreferrer">
                                     <FaFacebook size={30} />
                                 </a>
-                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                                <a href={footerData?.twitterURL || "#"} target="_blank" rel="noopener noreferrer">
                                     <FaTwitter size={30} />
                                 </a>
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                                <a href={footerData?.linkdinURL || "#"} target="_blank" rel="noopener noreferrer">
                                     <FaLinkedin size={30} />
                                 </a>
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                                <a href={footerData?.instagramURL || "#"} target="_blank" rel="noopener noreferrer">
                                     <FaInstagram size={30} />
                                 </a>
                             </div>
@@ -79,7 +111,7 @@ export function MainFooter({ admin_mode }: FooterProps) {
                                     <FaLocationDot className="text-blue-600 mt-1" />
                                     <div>
                                         <p className="font-semibold">Headquarters:</p>
-                                        <p>BitBloom Technologies, 225/SK, Colombo 12, Sri Lanka</p>
+                                        <p>{footerData?.headquartersAddress}</p>
                                     </div>
                                 </div>
 
@@ -88,8 +120,8 @@ export function MainFooter({ admin_mode }: FooterProps) {
                                     <div>
                                         <p className="font-semibold">Business Inquiries:</p>
                                         <p>
-                                            <a href="mailto:info@bitbloomtec.com" className="hover:underline">
-                                                info@bitbloomtec.com
+                                            <a href={footerData?.inquiriesMailAddress} className="hover:underline">
+                                                {footerData?.inquiriesMailAddress}
                                             </a>
                                         </p>
                                     </div>
@@ -100,8 +132,8 @@ export function MainFooter({ admin_mode }: FooterProps) {
                                     <div>
                                         <p className="font-semibold">Contact Number:</p>
                                         <p>
-                                            <a href="tel:+94112223344" className="hover:underline">
-                                                +94 112 223 344
+                                            <a href={footerData?.contactNumber} className="hover:underline">
+                                            {footerData?.contactNumber}
                                             </a>
                                         </p>
                                     </div>

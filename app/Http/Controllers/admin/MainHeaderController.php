@@ -24,7 +24,7 @@ class MainHeaderController extends Controller
             'businessInquiriesAddress' => 'required|max:255',
         ]);
 
-        $mainHeader = MainHeader::first(); // Assuming singleton record
+        $mainHeader = MainHeader::first();
         if (!$mainHeader) {
             $mainHeader = MainHeader::create($validated);
         } else {

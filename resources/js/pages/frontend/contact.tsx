@@ -44,14 +44,22 @@ export default function Contact({ admin_mode, title }: ContactProps) {
         }
 
         try {
+            setButtonState('loading');
             const res = await submitForm('/dashboard/customize-home/feedbacks/store', formData, csrfToken);
             setForm({ fullName: '', role: '', companyName: '', caption: '', isShow: true, src: null });
+            setButtonState('success');
+            setTimeout(() => setButtonState('idle'), 5000);
             //display thank u page
         } catch (error) {
             //toast.error('Error submitting form');
+            setButtonState('error');
             console.log("Feedback Submit error:", error)
+            setTimeout(() => setButtonState('idle'), 3000);
         }
     };
+    const [buttonState, setButtonState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+
     return (
         <>
             <FrontEndLayout admin_mode={admin_mode} title={title}>
@@ -107,7 +115,7 @@ export default function Contact({ admin_mode, title }: ContactProps) {
                             >
                                 {!isLoggedIn && (
                                     <div
-                                        className="absolute inset-0 bg-white/70 backdrop-blur-md z-10 flex items-center justify-center rounded-xl"
+                                        className="absolute inset-0 bg-black/15 backdrop-blur-sm z-10 flex items-center justify-center rounded-xl"
                                         onClick={() => {
                                             const currentPath = window.location.pathname;
                                             window.location.href = route('login') + `?redirect=${currentPath}`;
@@ -194,7 +202,41 @@ export default function Contact({ admin_mode, title }: ContactProps) {
                                         </div>
 
 
-                                        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 duration-200">Send Message</button>
+                                        <button
+                                            type="submit"
+                                            disabled={buttonState === 'loading'}
+                                            className={`
+        w-full p-3 rounded-lg transition transform duration-200 flex items-center justify-center gap-2
+        ${buttonState === 'success' ? 'bg-green-600 text-white' :
+                                                    buttonState === 'error' ? 'bg-red-600 text-white' :
+                                                        'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105'}
+    `}
+                                        >
+                                            {buttonState === 'loading' && (
+                                                <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24" fill="none">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                                </svg>
+                                            )}
+                                            {buttonState === 'success' && (
+                                                <>
+                                                    <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                    Submitted
+                                                </>
+                                            )}
+                                            {buttonState === 'error' && (
+                                                <>
+                                                    <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                    Error
+                                                </>
+                                            )}
+                                            {buttonState === 'idle' && 'Send Message'}
+                                        </button>
+
                                     </form>
                                 </div>
                             </motion.div>

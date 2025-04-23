@@ -108,8 +108,8 @@ export default function CustomizeKeyServices() {
         <div>
             <AdminLayout title="" isloading={loading}>
                 {/* Key Services Section */}
-                <div className="text-center pt-10 pb-10 border px-6 bg-[#0B0C10] rounded-lg">
-                    <h2 className="text-4xl font-semibold mb-6 text-white">Our Key Services</h2>
+                <div className="text-center pt-5 pb-10 border px-6 bg-[#0B0C10] rounded-lg">
+                    <h2 className="text-3xl font-semibold mb-6 text-white">Our Key Services</h2>
                     <p className="text-blue-400 text-lg mb-8 max-w-3xl mx-auto">
                         Every great product starts with a solid process. Here's how we partner with you — from the first chat to long-term support.
                     </p>
