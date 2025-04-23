@@ -4,6 +4,8 @@ use App\Http\Controllers\admin\FeedbacksController;
 use App\Http\Controllers\admin\footerController;
 use App\Http\Controllers\admin\KeyServiceController;
 use App\Http\Controllers\admin\MainHeaderController;
+use App\Http\Controllers\admin\ServicesCardController;
+use App\Http\Controllers\admin\ServicesMainHeaderController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\SolutionAreaController;
 use App\Http\Controllers\admin\TeamMembersCotroller;
@@ -51,6 +53,12 @@ Route::controller(FeedbacksController::class)->group(function () {
 });
 Route::controller(footerController::class)->group(function () {
     Route::get('/dashboard/customize-home/getFootercontent', 'GetFooterContent')->name('get.FooterContent');
+});
+Route::controller(ServicesMainHeaderController::class)->group(function () {
+    Route::get('/dashboard/customize-services/main-header/getMainHeadercontent', 'GetMainHeaderContent')->name('get.MainHeaderContent');
+});
+Route::controller(ServicesCardController::class)->group(function () {
+    Route::get('/dashboard/customize-services/service-card/getServiceCardinfo', 'GetServicecardInfo')->name('get.ServicecardInfo');
 });
 
 require __DIR__.'/admin/admin-dashboard.php';
