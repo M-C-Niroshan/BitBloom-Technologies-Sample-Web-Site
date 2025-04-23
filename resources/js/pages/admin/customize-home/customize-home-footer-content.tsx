@@ -83,20 +83,13 @@ export default function CustomizeFooterContent() {
     };
 
     return (
-        <AdminLayout title="">
+        <AdminLayout title="" isloading={loading}>
             <div className="bg-[#0B0C10] text-white py-10 border rounded-lg">
                 <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Company Info */}
                     <div>
                         <h3 className="text-2xl font-semibold mb-4">{footerData?.companyName || 'Company Name'}</h3>
                         <p className="text-sm mb-6">{footerData?.leftSideCaption || 'Company caption here...'}</p>
-                        <button
-                            onClick={handleEdit}
-                            className="text-sm border border-blue-600 px-3 py-1.5 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition inline-flex items-center"
-                        >
-                            <FiEdit className="mr-1" />
-                            {footerData?.notExists === true ? 'Add Footer Contents' : 'Edit'}
-                        </button>
                     </div>
 
                     {/* Quick Links */}
@@ -156,6 +149,16 @@ export default function CustomizeFooterContent() {
                 <div className="text-center text-gray-400 text-sm border-t border-gray-700 pt-6 mt-8">
                     <p>{footerData?.bottomCaption || '© 2025 BitBloom Technologies. All Rights Reserved.'}</p>
                 </div>
+                <div className="text-center pt-6">
+                    <button
+                        onClick={handleEdit}
+                        className="text-sm border border-blue-600 px-3 py-1.5 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition inline-flex items-center"
+                    >
+                        <FiEdit className="mr-1" />
+                        {footerData?.notExists === true ? 'Add Footer Contents' : 'Edit'}
+                    </button>
+                </div>
+
             </div>
 
             {/* Popup Modal */}

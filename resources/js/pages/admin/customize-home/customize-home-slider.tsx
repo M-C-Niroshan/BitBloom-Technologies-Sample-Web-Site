@@ -109,13 +109,13 @@ export default function Customizeslider() {
     return (
         <div>
             <AdminLayout title="" isloading={loading}>
-                <div className="w-full">
+                <div className="flex w-full justify-end">
                     <button
                         onClick={() => {
                             resetForm();
                             setShowModal(true);
                         }}
-                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 "
                     >
                         + Add New Slider
                     </button>

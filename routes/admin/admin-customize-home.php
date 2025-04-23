@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\admin\SliderController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    // Customize Home Page Route
-});
-
 // SliderController >>>
 Route::controller(SliderController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/customize-home/slider', function () {
