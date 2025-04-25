@@ -69,7 +69,7 @@ export default function CustomizeMainHeader() {
         <AdminLayout title="" isloading={loading}>
             <div className="bg-[#0B0C10] text-white py-10 border rounded-lg">
                 <h1 className="text-3xl font-extrabold mb-12 text-[#1b1b18] dark:text-[#EDEDEC] text-center">
-                    {headerData?.mainTitle || 'Our Professional Services'}
+                    {headerData?.mainTitle || 'About BitBloom Technologies'}
                 </h1>
                 <p className="text-lg mb-8 text-[#555] dark:text-[#bbb] max-w-2xl mx-auto">
                     {headerData?.subTitle || 'We offer a range of solutions designed to help your business grow. Each of our services is built with a focus on efficiency, performance, and user experience.'}

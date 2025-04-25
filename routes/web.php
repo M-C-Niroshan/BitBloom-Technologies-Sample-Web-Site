@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\AboutUsBottomController;
+use App\Http\Controllers\admin\AboutUsMainHeaderController;
+use App\Http\Controllers\admin\AboutUsMiddleController;
+use App\Http\Controllers\admin\AboutUsMissionVisionController;
 use App\Http\Controllers\admin\FeedbacksController;
 use App\Http\Controllers\admin\footerController;
 use App\Http\Controllers\admin\KeyServiceController;
@@ -60,6 +64,19 @@ Route::controller(ServicesMainHeaderController::class)->group(function () {
 Route::controller(ServicesCardController::class)->group(function () {
     Route::get('/dashboard/customize-services/service-card/getServiceCardinfo', 'GetServicecardInfo')->name('get.ServicecardInfo');
 });
+Route::controller(AboutUsMainHeaderController::class)->group(function () {
+    Route::get('/dashboard/customize-about/main-header/getAboutUsMainHeaderinfo', 'GetAboutUsMainHeaderContent')->name('get.AboutUsMainHeaderContent');
+});
+Route::controller(AboutUsMiddleController::class)->group(function () {
+    Route::get('/dashboard/customize-about/middle-header/getAboutUsMiddleHeaderinfo', 'GetAboutUsMiddleHeaderContent')->name('get.AboutUsMiddleHeaderContent');
+});
+Route::controller(AboutUsBottomController::class)->group(function () {
+    Route::get('/dashboard/customize-about/bottom-header/getAboutUsBottomHeaderinfo', 'GetAboutUsBottomHeaderContent')->name('get.AboutUsBottomHeaderContent');
+});
+Route::controller(AboutUsMissionVisionController::class)->group(function () {
+    Route::get('/dashboard/customize-about/mission-vision/getAboutUsMissionVisioninfo', 'GetAboutUsMissionVisionContent')->name('get.AboutUsMissionVisionContent');
+});
+
 
 require __DIR__.'/admin/admin-dashboard.php';
 require __DIR__.'/admin/admin-customize-home.php';
