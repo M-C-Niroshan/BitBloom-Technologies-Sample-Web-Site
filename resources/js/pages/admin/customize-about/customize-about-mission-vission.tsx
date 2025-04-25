@@ -126,7 +126,8 @@ export default function CustomizeMissionVission() {
                             </ul>
                         </motion.div>
 
-                    </div>                <div className="flex justify-center items-center pt-2">
+                    </div>
+                    <div className="flex justify-center items-center pt-2">
                         <button
                             onClick={() => { setEditing(true); setForm(content); }}
                             className="text-sm border border-blue-600 px-3 py-1.5 -mt-4 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition inline-flex items-center"

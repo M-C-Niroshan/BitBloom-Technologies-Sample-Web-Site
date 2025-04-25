@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FrontEndLayout from '@/layouts/frontend/frontend-layout';
 import { type SharedData } from '@/types';
-import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import LeftSideContent from '../../components/frontend/contact-page/left-side-content';
 import { motion } from 'framer-motion';
-import { usePage, Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { submitForm } from '@/utility/submitForm';
 interface ContactProps {
@@ -69,42 +69,7 @@ export default function Contact({ admin_mode, title }: ContactProps) {
                     <div className="flex-1 max-w-6xl mx-auto bg-[#FDFDFC] dark:bg-[#0a0a0a] px-6 py-12 text-[#1b1b18] dark:text-[#EDEDEC]">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                             {/* Left Side: Contact Info */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.7 }}
-                            >
-                                <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
-                                <p className="mb-6 text-lg dark:text-[#bbb]">
-                                    We’d love to hear from you! Reach out with questions, ideas, or just to say hello. Here’s how you can get in touch with us:
-                                </p>
-
-                                <div className="space-y-6 text-md pt-3">
-                                    <div className="flex items-center gap-4 ">
-                                        <FaEnvelope className="text-blue-600" />
-                                        <div>
-                                            <p className="font-semibold">Email:</p>
-                                            <a href="mailto:contact@bitbloom.tech" className="text-blue-600 hover:underline">contact@bitbloom.tech</a>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-4">
-                                        <FaPhoneAlt className="text-blue-600" />
-                                        <div>
-                                            <p className="font-semibold">Phone:</p>
-                                            <p>+94 (112) 223-344</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-4">
-                                        <FaMapMarkerAlt className="text-blue-600" />
-                                        <div>
-                                            <p className="font-semibold">Address:</p>
-                                            <p>BitBloom Technologies, 225/SK, Colombo 12, Sri Lanka</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
+                            <LeftSideContent/>
 
                             {/* Right Side: Contact Form */}
                             <motion.div

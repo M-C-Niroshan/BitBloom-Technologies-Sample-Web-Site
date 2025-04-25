@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AboutUsBottomController;
 use App\Http\Controllers\admin\AboutUsMainHeaderController;
 use App\Http\Controllers\admin\AboutUsMiddleController;
 use App\Http\Controllers\admin\AboutUsMissionVisionController;
+use App\Http\Controllers\admin\ContactUsLeftSideContentController;
 use App\Http\Controllers\admin\FeedbacksController;
 use App\Http\Controllers\admin\footerController;
 use App\Http\Controllers\admin\KeyServiceController;
@@ -32,6 +33,7 @@ Route::get('/services', function () {
 Route::get('/contact', function () {
     return Inertia::render('frontend/contact');
 })->name('contact');
+
 
 Route::controller(SliderController::class)->group(function () {
     Route::get('/dashboard/customize-home/slider/getsliders', 'SliderGet')->name('get.slider');
@@ -75,6 +77,9 @@ Route::controller(AboutUsBottomController::class)->group(function () {
 });
 Route::controller(AboutUsMissionVisionController::class)->group(function () {
     Route::get('/dashboard/customize-about/mission-vision/getAboutUsMissionVisioninfo', 'GetAboutUsMissionVisionContent')->name('get.AboutUsMissionVisionContent');
+});
+Route::controller(ContactUsLeftSideContentController::class)->group(function () {
+    Route::get('/dashboard/customize-contact-us/main-content/getContactUsLeftSideContentinfo', 'GetContactUsLeftSideContent')->name('get.ContactUsLeftSideContent');
 });
 
 
