@@ -1,8 +1,6 @@
 import { Link } from '@inertiajs/react';
 import 'react-slideshow-image/dist/styles.css';
 import { motion } from "framer-motion";
-import { FaLocationDot } from "react-icons/fa6";
-import { MdAlternateEmail } from "react-icons/md";
 import Slider from './sub-component/slider';
 import MainHeader from './sub-component/mainHeader'
 

@@ -1,6 +1,5 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { MdAlternateEmail } from "react-icons/md";
-
 import { useEffect, useState } from "react";
 import { fetchData } from '@/utility/fetchData';
 

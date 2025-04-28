@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LuSquareArrowDownRight } from "react-icons/lu";
 import { motion } from "framer-motion";
-import { MdFactory } from "react-icons/md";
-import { FaShippingFast } from "react-icons/fa";
-import { FaMobileAlt } from "react-icons/fa";
-import { FaPiggyBank } from "react-icons/fa";
-import { MdDevices } from "react-icons/md";
 import { MdCheckCircle } from "react-icons/md";
 
 export default function KeyServiceSection() {
