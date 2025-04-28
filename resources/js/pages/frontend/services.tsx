@@ -1,6 +1,4 @@
 import FrontEndLayout from '@/layouts/frontend/frontend-layout';
-import { MdCode, MdDesignServices, MdCloud, MdBusiness, MdCheckCircle } from 'react-icons/md'; // Example icons
-import { motion } from 'framer-motion'; // Importing motion from framer-motion
 import MainHeader from '../../components/frontend/service-page/main-header';
 import ServiceCards from '../../components/frontend/service-page/service-cards';
 

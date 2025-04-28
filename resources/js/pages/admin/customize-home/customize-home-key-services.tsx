@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import AdminLayout from '@/layouts/admin/admin-layout';
 import { submitForm } from '@/utility/submitForm';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
-import { LuSquareArrowDownRight } from "react-icons/lu";
 import { MdCheckCircle } from "react-icons/md";
 import toast from 'react-hot-toast';
 

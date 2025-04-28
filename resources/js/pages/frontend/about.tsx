@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import FrontEndLayout from '@/layouts/frontend/frontend-layout';
 import { motion } from 'framer-motion';
 import MainHeader from '../../components/frontend/about-page/main-header';

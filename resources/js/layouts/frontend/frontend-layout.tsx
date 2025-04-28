@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Header } from '@/components/main-header';
 import { MainFooter } from '@/components/main-footer';
 

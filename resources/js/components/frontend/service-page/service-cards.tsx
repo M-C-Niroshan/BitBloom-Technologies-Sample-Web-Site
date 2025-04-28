@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-import { MdCode, MdDesignServices, MdCloud, MdBusiness, MdCheckCircle } from 'react-icons/md'; // Example icons
-import { motion } from 'framer-motion'; // Importing motion from framer-motion
-import { submitForm } from '@/utility/submitForm';
-import toast from 'react-hot-toast';
-import { FiEdit, FiTrash2, FiPlus, FiX } from 'react-icons/fi';
+import { MdCheckCircle } from 'react-icons/md';
+import { motion } from 'framer-motion'; 
 
 interface ServiceCard {
     id?: number;
