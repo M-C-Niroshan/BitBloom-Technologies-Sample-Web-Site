@@ -22,6 +22,10 @@ Route::get('/', function () {
     return Inertia::render('frontend/welcome');
 })->name('home');
 
+Route::get('/dashboard', function () {
+    return Inertia::render('frontend/dashboard');
+})->name('dashboard');
+
 Route::get('/about', function () {
     return Inertia::render('frontend/about');
 })->name('about');
