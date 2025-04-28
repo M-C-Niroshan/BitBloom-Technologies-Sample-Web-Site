@@ -69,7 +69,7 @@ export default function Contact({ admin_mode, title }: ContactProps) {
                     <div className="flex-1 max-w-6xl mx-auto bg-[#FDFDFC] dark:bg-[#0a0a0a] px-6 py-12 text-[#1b1b18] dark:text-[#EDEDEC]">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                             {/* Left Side: Contact Info */}
-                            <LeftSideContent/>
+                            <LeftSideContent />
 
                             {/* Right Side: Contact Form */}
                             <motion.div
